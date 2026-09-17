@@ -1,0 +1,14 @@
+"app_title" = "LifeSync AI";
+"today_label" = "Oggi";
+"active_status" = "Attivo";
+"steps_today" = "Passi Oggi";
+"visited_places" = "Luoghi Visitati";
+"detected_activity" = "Attivita Rilevata:";
+"ai_summary" = "Riepilogo Assistente AI";
+"generate_now" = "Genera Ora";
+"generating" = "Generazione...";
+"watch_ad_unlock" = "Guarda video e sblocca";
+"daily_backup_status" = "Stato Backup Giornaliero";
+"export_backup" = "Esporta Log & Backup";
+"backup_complete" = "Backup Completo";
+"backup_complete_message" = "Il tuo backup giornaliero e archiviato in locale con successo.";

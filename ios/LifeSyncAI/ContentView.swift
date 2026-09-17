@@ -1,13 +1,17 @@
 import SwiftUI
 import SwiftData
+import UIKit
 
 struct ContentView: View {
     @StateObject private var locationManager = LocationManager()
     @StateObject private var motionTracker = MotionTracker()
+    @StateObject private var subscriptionManager = SubscriptionManager.shared
+    @StateObject private var unityAdsManager = UnityAdsManager.shared
     
     @State private var aiSummaryText: String = "Il tuo riepilogo automatico delle ore 23:00 comparirà qui."
     @State private var isGenerating: Bool = false
     @State private var showingBackupAlert: Bool = false
+    @State private var showingPaywall: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -21,11 +25,11 @@ struct ContentView: View {
                         // Header Card
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
-                                Text("Oggi, 17 Settembre")
+                                Text(todayTitle)
                                     .font(.caption)
                                     .fontWeight(.bold)
                                     .foregroundColor(.cyan)
-                                Text("LifeSync AI Log")
+                                Text("app_title".localized)
                                     .font(.title2)
                                     .fontWeight(.bold)
                                     .foregroundColor(.white)
@@ -36,7 +40,7 @@ struct ContentView: View {
                                 Circle()
                                     .fill(Color.green)
                                     .frame(width: 8, height: 8)
-                                Text("Attivo")
+                                Text("active_status".localized)
                                     .font(.caption2)
                                     .fontWeight(.semibold)
                                     .foregroundColor(.green)
@@ -53,14 +57,14 @@ struct ContentView: View {
                         // Metrics Grid
                         HStack(spacing: 12) {
                             MetricCardView(
-                                title: "Passi Oggi",
+                                title: "steps_today".localized,
                                 value: "\(motionTracker.stepsToday)",
                                 icon: "shoeprints.fill",
                                 color: .cyan
                             )
                             
                             MetricCardView(
-                                title: "Luoghi Visitati",
+                                title: "visited_places".localized,
                                 value: "\(locationManager.visitsCountToday)",
                                 icon: "mappin.circle.fill",
                                 color: .purple
@@ -69,7 +73,7 @@ struct ContentView: View {
                         
                         // Activity Status
                         HStack {
-                            Label("Attività Rilevata:", systemImage: "figure.walk")
+                            Label("detected_activity".localized, systemImage: "figure.walk")
                                 .font(.subheadline)
                                 .foregroundColor(.gray)
                             Spacer()
@@ -85,13 +89,13 @@ struct ContentView: View {
                         // AI Summary Section
                         VStack(alignment: .leading, spacing: 14) {
                             HStack {
-                                Label("Riepilogo Assistente AI", systemImage: "sparkles")
+                                Label("ai_summary".localized, systemImage: "sparkles")
                                     .font(.headline)
                                     .foregroundColor(.yellow)
                                 
                                 Spacer()
                                 
-                                Button(action: generateAISummary) {
+                                Button(action: requestAISummaryAccess) {
                                     HStack(spacing: 5) {
                                         if isGenerating {
                                             ProgressView()
@@ -99,7 +103,7 @@ struct ContentView: View {
                                         } else {
                                             Image(systemName: "arrow.clockwise")
                                         }
-                                        Text(isGenerating ? "Generazione..." : "Genera Ora")
+                                        Text(isGenerating ? "generating".localized : summaryButtonTitle)
                                     }
                                     .font(.caption)
                                     .fontWeight(.bold)
@@ -131,27 +135,19 @@ struct ContentView: View {
                         // Backup Status Card
                         VStack(alignment: .leading, spacing: 10) {
                             HStack {
-                                Label("Stato Backup Giornaliero", systemImage: "lock.shield.fill")
+                                Label("daily_backup_status".localized, systemImage: "lock.shield.fill")
                                     .font(.subheadline)
                                     .fontWeight(.bold)
                                     .foregroundColor(.green)
-                                Spacer()
-                                Text("AES-256")
-                                    .font(.caption2)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 3)
-                                    .background(Color.green.opacity(0.2))
-                                    .foregroundColor(.green)
-                                    .cornerRadius(6)
                             }
-                            Text("I dati dei sensori di movimento e le posizioni sono memorizzati esclusivamente in locale e nel tuo backup cifrato iCloud.")
+                            Text("I dati dei sensori di movimento e le posizioni sono memorizzati sul dispositivo per creare il tuo riepilogo giornaliero.")
                                 .font(.caption)
                                 .foregroundColor(.gray)
                             
-                            Button(action: { showingBackupAlert = true }) {
+                            Button(action: exportBackup) {
                                 HStack {
                                     Image(systemName: "arrow.down.doc")
-                                    Text("Esporta Log & Backup")
+                                    Text("export_backup".localized)
                                 }
                                 .font(.caption)
                                 .fontWeight(.semibold)
@@ -177,12 +173,55 @@ struct ContentView: View {
                 motionTracker.startTracking()
                 AISummarizerService.shared.scheduleDailyNightlyNotification()
             }
-            .alert("Backup Completo", isPresented: $showingBackupAlert) {
+            .sheet(isPresented: $showingPaywall) {
+                PaywallView()
+            }
+            .alert("backup_complete".localized, isPresented: $showingBackupAlert) {
                 Button("OK", role: .cancel) { }
             } message: {
-                Text("Il tuo backup giornaliero è archiviato in locale con successo.")
+                Text("backup_complete_message".localized)
             }
         }
+    }
+
+    private var summaryButtonTitle: String {
+        subscriptionManager.isSubscribed ? "generate_now".localized : "watch_ad_unlock".localized
+    }
+
+    private var todayTitle: String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return "\("today_label".localized), \(formatter.string(from: Date()))"
+    }
+    
+    private func requestAISummaryAccess() {
+        guard !subscriptionManager.isSubscribed else {
+            generateAISummary()
+            return
+        }
+        
+        guard let presenter = UIViewController.topMostViewController() else {
+            showingPaywall = true
+            return
+        }
+        
+        unityAdsManager.showRewardedAd(from: presenter) { didEarnReward in
+            DispatchQueue.main.async {
+                if didEarnReward {
+                    generateAISummary()
+                } else {
+                    showingPaywall = true
+                }
+            }
+        }
+    }
+    
+    private func exportBackup() {
+        if !subscriptionManager.isSubscribed, let presenter = UIViewController.topMostViewController() {
+            unityAdsManager.showInterstitialAd(from: presenter)
+        }
+        showingBackupAlert = true
     }
     
     private func generateAISummary() {
@@ -197,6 +236,27 @@ struct ContentView: View {
                 }
             }
         }
+    }
+}
+
+private extension UIViewController {
+    static func topMostViewController(
+        base: UIViewController? = UIApplication.shared.connectedScenes
+            .compactMap { $0 as? UIWindowScene }
+            .flatMap(\.windows)
+            .first { $0.isKeyWindow }?
+            .rootViewController
+    ) -> UIViewController? {
+        if let navigation = base as? UINavigationController {
+            return topMostViewController(base: navigation.visibleViewController)
+        }
+        if let tab = base as? UITabBarController, let selected = tab.selectedViewController {
+            return topMostViewController(base: selected)
+        }
+        if let presented = base?.presentedViewController {
+            return topMostViewController(base: presented)
+        }
+        return base
     }
 }
 

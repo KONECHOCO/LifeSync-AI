@@ -1,0 +1,47 @@
+name: LifeSyncAI
+options:
+  bundleIdPrefix: com.konechoco
+  deploymentTarget:
+    iOS: "17.0"
+  developmentLanguage: it
+settings:
+  base:
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+    SWIFT_VERSION: "5.9"
+    DEVELOPMENT_TEAM: "$(APPLE_TEAM_ID)"
+packages: {}
+targets:
+  LifeSyncAI:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources:
+      - path: ios/LifeSyncAI
+        excludes:
+          - Resources/**
+    resources:
+      - path: ios/LifeSyncAI/Resources
+        optional: true
+    info:
+      path: ios/LifeSyncAI/Info.plist
+    entitlements:
+      path: ios/LifeSyncAI/LifeSyncAI.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.konechoco.lifesyncai
+        PRODUCT_NAME: LifeSync AI
+        INFOPLIST_FILE: ios/LifeSyncAI/Info.plist
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ENABLE_USER_SCRIPT_SANDBOXING: "NO"
+        SUPPORTS_MACCATALYST: "NO"
+    dependencies:
+      - sdk: CoreLocation.framework
+      - sdk: CoreMotion.framework
+      - sdk: DeviceActivity.framework
+      - sdk: FamilyControls.framework
+      - sdk: ManagedSettings.framework
+      - sdk: StoreKit.framework
+      - sdk: UserNotifications.framework
+      - sdk: AppTrackingTransparency.framework

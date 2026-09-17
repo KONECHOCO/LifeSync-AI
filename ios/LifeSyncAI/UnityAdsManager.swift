@@ -8,13 +8,17 @@ import Combine
 import UnityAds
 #endif
 
+#if canImport(AppTrackingTransparency)
+import AppTrackingTransparency
+#endif
+
 /// Manager per l'integrazione della Monetizzazione Unity Ads (Video Rewarded, Interstitial & Banner)
 final class UnityAdsManager: NSObject, ObservableObject {
     static let shared = UnityAdsManager()
     
     // Inserisci qui il tuo Game ID di Unity Ads dal dashboard cloud.unity.com
     static let unityGameID = "687287710" // ID di test configurato nel dashboard Unity
-    static let testMode = true
+    static let testMode = false
     
     // Placement IDs di Unity Ads
     static let rewardedPlacementID = "Rewarded_iOS"
@@ -36,11 +40,30 @@ final class UnityAdsManager: NSObject, ObservableObject {
     /// Inizializza il framework Unity Ads
     func initializeUnityAds() {
         #if canImport(UnityAds)
-        UnityAds.initialize(UnityAdsManager.unityGameID, testMode: UnityAdsManager.testMode, initializationDelegate: self)
+        requestTrackingAuthorizationIfNeeded {
+            UnityAds.initialize(UnityAdsManager.unityGameID, testMode: UnityAdsManager.testMode, initializationDelegate: self)
+        }
         #else
-        print("ℹ️ SDK UnityAds in modalità simulata. Aggiungi il pacchetto 'UnityAds' in Xcode per la build di produzione.")
+        print("SDK UnityAds in modalita simulata. Il workflow Codemagic installa il pod UnityAds per la build di produzione.")
         self.isSdkInitialized = true
         self.isRewardedAdReady = true
+        #endif
+    }
+
+    private func requestTrackingAuthorizationIfNeeded(completion: @escaping () -> Void) {
+        #if canImport(AppTrackingTransparency)
+        guard #available(iOS 14, *) else {
+            completion()
+            return
+        }
+
+        ATTrackingManager.requestTrackingAuthorization { _ in
+            DispatchQueue.main.async {
+                completion()
+            }
+        }
+        #else
+        completion()
         #endif
     }
     
@@ -49,15 +72,17 @@ final class UnityAdsManager: NSObject, ObservableObject {
         self.completionHandler = completion
         
         #if canImport(UnityAds)
-        guard UnityAds.isReady(UnityAdsManager.rewardedPlacementID) else {
+        guard isRewardedAdReady else {
             print("⚠️ Unity Ads Rewarded non ancora pronto.")
+            UnityAds.load(UnityAdsManager.rewardedPlacementID, loadDelegate: self)
             completion(false)
             return
         }
+        isRewardedAdReady = false
         UnityAds.show(viewController, placementId: UnityAdsManager.rewardedPlacementID, showDelegate: self)
         #else
         // Simulazione locale per testing
-        print("🎬 Unity Ads Rewarded riprodotto con successo!")
+        print("Unity Ads Rewarded riprodotto con successo.")
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
             self.adRewardEarned = true
             completion(true)
@@ -68,11 +93,14 @@ final class UnityAdsManager: NSObject, ObservableObject {
     /// Mostra un Ad Interstitial prima dell'esportazione del backup
     func showInterstitialAd(from viewController: UIViewController) {
         #if canImport(UnityAds)
-        if UnityAds.isReady(UnityAdsManager.interstitialPlacementID) {
+        if isInterstitialReady {
+            isInterstitialReady = false
             UnityAds.show(viewController, placementId: UnityAdsManager.interstitialPlacementID, showDelegate: self)
+        } else {
+            UnityAds.load(UnityAdsManager.interstitialPlacementID, loadDelegate: self)
         }
         #else
-        print("🎬 Unity Ads Interstitial mostrato.")
+        print("Unity Ads Interstitial mostrato.")
         #endif
     }
 }
@@ -118,6 +146,7 @@ extension UnityAdsManager: UnityAdsInitializationDelegate, UnityAdsShowDelegate,
         } else {
             completionHandler?(false)
         }
+        UnityAds.load(placementId, loadDelegate: self)
     }
     
     func unityAdsShowFailed(_ placementId: String, withError error: UnityAdsShowError, withMessage message: String) {

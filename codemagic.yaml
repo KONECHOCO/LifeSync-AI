@@ -1,0 +1,59 @@
+workflows:
+  ios-app-store:
+    name: LifeSync AI - iOS App Store
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    environment:
+      xcode: latest
+      cocoapods: default
+      groups:
+        - app_store_connect
+        - ios_signing
+      vars:
+        XCODE_WORKSPACE: "LifeSyncAI.xcworkspace"
+        XCODE_SCHEME: "LifeSyncAI"
+        BUNDLE_ID: "com.konechoco.lifesyncai"
+        APP_STORE_APP_ID: "$APP_STORE_APP_ID"
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: "$BUNDLE_ID"
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: main
+          include: true
+          source: true
+    scripts:
+      - name: Install project tooling
+        script: |
+          brew install xcodegen
+      - name: Generate Xcode project
+        script: |
+          xcodegen generate
+      - name: Install iOS dependencies
+        script: |
+          pod install --repo-update
+      - name: Configure code signing
+        script: |
+          xcode-project use-profiles --project LifeSyncAI.xcodeproj
+      - name: Build App Store IPA
+        script: |
+          BUILD_NUMBER=$(($(app-store-connect get-latest-app-store-build-number "$APP_STORE_APP_ID" --version 1.0 2>/dev/null || echo 0) + 1))
+          agvtool new-version -all "$BUILD_NUMBER"
+          xcode-project build-ipa \
+            --workspace "$XCODE_WORKSPACE" \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+      - /tmp/xcodebuild_logs/*.log
+      - "$HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.dSYM"
+    publishing:
+      app_store_connect:
+        api_key: "$APP_STORE_CONNECT_PRIVATE_KEY"
+        key_id: "$APP_STORE_CONNECT_KEY_IDENTIFIER"
+        issuer_id: "$APP_STORE_CONNECT_ISSUER_ID"
+        submit_to_testflight: true
+        beta_groups:
+          - App Store Review
+        submit_to_app_store: false

@@ -14,6 +14,11 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
+    <script>
+        if (new URLSearchParams(window.location.search).get('shot') === 'paywall') {
+            document.documentElement.classList.add('screenshot-paywall');
+        }
+    </script>
     <div class="background-globes">
         <div class="globe globe-1"></div>
         <div class="globe globe-2"></div>
@@ -510,6 +515,6 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script src="app.js?v=20260917-appstore-2"></script>
 </body>
 </html>

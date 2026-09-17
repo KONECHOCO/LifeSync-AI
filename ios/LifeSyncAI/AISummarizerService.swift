@@ -14,7 +14,7 @@ final class AISummarizerService {
             guard granted, error == nil else { return }
             
             let content = UNMutableNotificationContent()
-            content.title = "LifeSync AI • Riepilogo della Giornata 🌙"
+            content.title = "LifeSync AI - Riepilogo della Giornata"
             content.body = "Il tuo assistente ha sintetizzato i tuoi movimenti di oggi e creato il backup."
             content.sound = .default
             
@@ -38,12 +38,12 @@ final class AISummarizerService {
         // Simulazione o chiamata HTTPS sicura all'endpoint LLM / Apple Foundation Models
         DispatchQueue.global().asyncAfter(deadline: .now() + 1.2) {
             let summary = """
-            🌟 **Riepilogo Assistente LifeSync AI**
+            Riepilogo Assistente LifeSync AI
             
             Oggi hai mantenuto un eccellente livello di attività! 
-            • Passi totali percorsi: Registrati con successo
-            • Spostamenti e luoghi visitati: Monitorati tramite CoreLocation Visit API a basso consumo.
-            • Backup di sicurezza: Cifrato e salvato in archivio locale e iCloud.
+            - Passi totali percorsi: Registrati con successo
+            - Spostamenti e luoghi visitati: Monitorati tramite CoreLocation Visit API a basso consumo.
+            - Backup di sicurezza: Salvato in archivio locale.
             
             Buon riposo per stasera!
             """

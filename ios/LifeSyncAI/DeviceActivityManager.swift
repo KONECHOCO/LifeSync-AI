@@ -14,13 +14,15 @@ final class DeviceActivityManager: ObservableObject {
     
     /// Richiede all'utente l'autorizzazione di monitoraggio Screen Time / Device Activity
     func requestScreenTimeAuthorization() {
-        AuthorizationCenter.shared.requestAuthorization(for: .individual) { result in
-            DispatchQueue.main.async {
-                switch result {
-                case .success:
+        Task {
+            do {
+                try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
+                await MainActor.run {
                     self.isAuthorized = true
                     self.startMonitoringMessagingApps()
-                case .failure(let error):
+                }
+            } catch {
+                await MainActor.run {
                     print("⚠️ Autorizzazione DeviceActivity negata: \(error.localizedDescription)")
                     self.isAuthorized = false
                 }

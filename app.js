@@ -399,7 +399,33 @@ document.addEventListener("DOMContentLoaded", () => {
     state.timeline = [...i18n.it.timelineItems];
     renderTimeline();
     loadSwiftFile('UnityAdsManager');
+    applyScreenshotPresetFromUrl();
 });
+
+function applyScreenshotPresetFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    const lang = params.get('lang');
+    const tab = params.get('tab');
+    const shot = params.get('shot');
+
+    if (lang && i18n[lang]) {
+        const select = document.getElementById('lang-select');
+        if (select) select.value = lang;
+        changeLanguage(lang);
+    }
+
+    if (tab) {
+        switchTab(tab);
+    }
+
+    if (shot === 'paywall') {
+        openPaywallModal();
+    } else if (shot === 'summary') {
+        generateAISummary();
+    } else if (shot === 'notification') {
+        simulatePushNotification();
+    }
+}
 
 // Unity Ads Video Modal Simulation
 function simulateUnityAdVideo() {

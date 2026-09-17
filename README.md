@@ -11,10 +11,10 @@ LifeSync AI is a high-performance iOS life-logging assistant and daily narrative
 ## 🌟 Key Features
 
 - **📍 Battery-Efficient Motion & Location Log (`CoreLocation` & `CoreMotion`)**: Uses `CLVisit` and `Significant Location Changes` to consume <0.8% battery per day.
-- **💬 Messaging & Communication Screen Time (`DeviceActivity`)**: Tracks WhatsApp, Phone calls, and SMS usage minutes in full compliance with App Store privacy rules.
+- **💬 Communication Usage Module (`DeviceActivity`)**: Prepared for Screen Time-based communication app usage when the Apple entitlement is approved.
 - **🎙️ Quick Voice Journaling (`AVFoundation` & Siri Shortcuts)**: Record quick audio thoughts that are transcribed and summarized into the daily backup.
 - **🤖 Automated AI Daily Summary**: Generates a daily narrative backup report every evening at 11:00 PM.
-- **🔒 Encrypted Local & Cloud Backup (SwiftData + AES-256)**: Secure, private data storage on-device and in iCloud.
+- **🔒 Local Daily Archive (SwiftData)**: Private on-device storage for daily activity summaries.
 - **🌍 Native Multi-Language Support (i18n)**: Fully localized in **Italian, English, Spanish, and French**.
 - **💰 StoreKit 2 Subscription Paywall**: Integrated €4.99/month Auto-Renewable Subscription with a 7-Day Free Trial.
 
@@ -65,7 +65,7 @@ Open `http://localhost:8080` in your browser to test the interactive simulator a
 
 ## 🔒 App Store Compliance & Privacy
 
-- Operates strictly within official Apple iOS APIs (`CoreLocation`, `CoreMotion`, `DeviceActivity`, `HealthKit`).
+- Operates strictly within official Apple iOS APIs (`CoreLocation`, `CoreMotion`, `DeviceActivity` when entitlement-approved, and StoreKit 2).
 - No unauthorized keylogging or screen recording. 100% compliant with Apple App Review Guidelines.
 
 ---

@@ -1003,6 +1003,11 @@ body {
     pointer-events: auto;
 }
 
+.screenshot-paywall .paywall-modal-overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
 .paywall-modal-card {
     width: 420px;
     max-width: 90%;

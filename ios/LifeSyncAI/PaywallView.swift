@@ -70,9 +70,9 @@ struct PaywallView: View {
                 VStack(alignment: .leading, spacing: 16) {
                     FeatureRow(icon: "sparkles", color: .yellow, title: "Riepilogo Serale AI Illimitato", subtitle: "Generazione automatica ogni giorno alle 23:00")
                     FeatureRow(icon: "location.fill", color: .cyan, title: "Tracciamento Luoghi & Passi", subtitle: "CoreLocation Visit ultra-efficiente (<0.8% batt)")
-                    FeatureRow(icon: "bubble.left.and.bubble.right.fill", color: .purple, title: "Messaggi & Chiamate (DeviceActivity)", subtitle: "Monitoraggio Screen Time per WhatsApp & Telefono")
+                    FeatureRow(icon: "bubble.left.and.bubble.right.fill", color: .purple, title: "Uso app comunicazione", subtitle: "Compatibile con Screen Time quando l'autorizzazione Apple e disponibile")
                     FeatureRow(icon: "mic.fill", color: .pink, title: "Diario Vocale Rapido", subtitle: "Trascrizione automatica ed elaborazione note vocali")
-                    FeatureRow(icon: "icloud.fill", color: .green, title: "Backup Cifrato illimitato", subtitle: "Archiviazione sicura locale e su iCloud AES-256")
+                    FeatureRow(icon: "lock.fill", color: .green, title: "Archivio personale", subtitle: "Salvataggio locale dei dati usati per il riepilogo giornaliero")
                 }
                 .padding()
                 .background(Color.white.opacity(0.04))

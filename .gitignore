@@ -25,3 +25,4 @@ Packages/
 node_modules/
 .venv/
 *.log
+.chrome-screenshot-profiles*/
