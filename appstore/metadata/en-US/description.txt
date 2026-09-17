@@ -1,0 +1,25 @@
+LifeSync AI is your private, on-device daily companion — it quietly gathers the moments of your day and turns them into a clear, readable story every evening.
+
+WHAT LIFESYNC AI DOES
+• Battery-friendly location log — uses significant-location-change and visit detection to note where your day took you, using less than 0.8% battery.
+• Screen time for messaging — see how many minutes you spent on calls and messaging apps, fully within Apple's DeviceActivity privacy rules.
+• One-tap voice journaling — record a quick thought and let LifeSync AI transcribe and fold it into your daily backup.
+• Automatic AI daily summary — every evening at 11:00 PM, LifeSync AI writes a short narrative of your day from your activity, location, and voice notes.
+• Encrypted backup — your daily logs are stored locally and, optionally, in iCloud, protected with AES-256 encryption.
+• Built natively in Italian, English, Spanish, and French, with more languages planned.
+
+WHY PEOPLE USE IT
+Most journaling apps ask you to sit down and write. LifeSync AI does the opposite: it observes the shape of your day in the background and gives you a finished, private summary at night — so keeping a daily record takes seconds, not minutes.
+
+LIFESYNC PRO
+Upgrade to LifeSync Pro for an ad-free experience:
+• No video ads before backups or exports
+• Unlimited AI daily summaries
+• Priority processing for voice transcription
+LifeSync Pro is €4.99/month with a 7-day free trial. Payment will be charged to your Apple ID account at the confirmation of purchase. Subscriptions automatically renew unless auto-renew is turned off at least 24 hours before the end of the current period. You can manage or cancel your subscription anytime in your Apple ID account settings.
+
+PRIVACY FIRST
+LifeSync AI is built entirely on Apple's own frameworks (CoreLocation, CoreMotion, DeviceActivity, HealthKit). Your data stays on your device and in your own iCloud account — we don't sell or share it.
+
+Terms of Use: https://TODO-add-your-eula-url
+Privacy Policy: https://TODO-add-your-privacy-policy-url
