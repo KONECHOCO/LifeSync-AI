@@ -79,7 +79,7 @@ final class UnityAdsManager: NSObject, ObservableObject {
             return
         }
         isRewardedAdReady = false
-        UnityAds.show(viewController: viewController, placementId: UnityAdsManager.rewardedPlacementID, showDelegate: self)
+        UnityAds.show(viewController, placementId: UnityAdsManager.rewardedPlacementID, showDelegate: self)
         #else
         // Simulazione locale per testing
         print("Unity Ads Rewarded riprodotto con successo.")
@@ -95,7 +95,7 @@ final class UnityAdsManager: NSObject, ObservableObject {
         #if canImport(UnityAds)
         if isInterstitialReady {
             isInterstitialReady = false
-            UnityAds.show(viewController: viewController, placementId: UnityAdsManager.interstitialPlacementID, showDelegate: self)
+            UnityAds.show(viewController, placementId: UnityAdsManager.interstitialPlacementID, showDelegate: self)
         } else {
             UnityAds.load(UnityAdsManager.interstitialPlacementID, loadDelegate: self)
         }
