@@ -22,9 +22,15 @@ targets:
           - Resources/**
     resources:
       - path: ios/LifeSyncAI/Resources
-        optional: true
     info:
       path: ios/LifeSyncAI/Info.plist
+      properties:
+        CFBundleIconName: AppIcon
+        CFBundleIconFiles:
+          - Icon-60@2x.png
+          - Icon-60@3x.png
+          - Icon-76@2x.png
+          - Icon-83.5@2x.png
     entitlements:
       path: ios/LifeSyncAI/LifeSyncAI.entitlements
     settings:
