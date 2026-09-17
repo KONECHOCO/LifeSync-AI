@@ -137,7 +137,7 @@ extension UnityAdsManager: UnityAdsInitializationDelegate, UnityAdsShowDelegate,
         print("⚠️ Unity Ad errore caricamento [\(placementId)]: \(message)")
     }
     
-    func unityAdsShowComplete(_ placementId: String, withFinishState state: UnityAdsShowCompletionState) {
+    func unityAdsShowComplete(_ placementId: String, withFinishState state: UADSShowFinishState) {
         if state == .completed {
             print("🎁 Utente ha guardato tutto il video Unity Ads! Ricompensa concessa.")
             DispatchQueue.main.async {
