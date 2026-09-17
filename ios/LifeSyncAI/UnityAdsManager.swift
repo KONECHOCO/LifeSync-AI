@@ -138,7 +138,7 @@ extension UnityAdsManager: UnityAdsInitializationDelegate, UnityAdsShowDelegate,
     }
     
     func unityAdsShowComplete(_ placementId: String, withFinishState state: UnityAdsShowCompletionState) {
-        if state == UnityAdsShowCompletionState.completed {
+        if state == UnityAdsShowCompletionState.showCompletionStateCompleted {
             print("🎁 Utente ha guardato tutto il video Unity Ads! Ricompensa concessa.")
             DispatchQueue.main.async {
                 self.completionHandler?(true)
