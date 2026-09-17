@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LifeSync AI - Assistente Personale & Daily Backup</title>
+    <meta name="description" content="App di assistenza personale che traccia le attività quotidiane, movimento, utilizzo dispositivo ed invia un riepilogo automatico AI.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="background-globes">
+        <div class="globe globe-1"></div>
+        <div class="globe globe-2"></div>
+        <div class="globe globe-3"></div>
+    </div>
+
+    <!-- Header navigation -->
+    <header class="navbar">
+        <div class="nav-brand">
+            <div class="brand-icon">
+                <i class="fa-solid fa-brain"></i>
+            </div>
+            <div class="brand-text">
+                <span class="brand-title">LifeSync <span class="highlight">AI</span></span>
+                <span class="brand-tagline" id="txt-nav-tagline">Daily Backup & Personal Assistant</span>
+            </div>
+        </div>
+
+        <nav class="nav-links">
+            <button id="nav-demo-btn" class="nav-btn active" onclick="switchTab('demo')">
+                <i class="fa-solid fa-mobile-screen-button"></i> <span id="txt-tab-demo">Simulator App</span>
+            </button>
+            <button id="nav-swift-btn" class="nav-btn" onclick="switchTab('swift')">
+                <i class="fa-brands fa-swift"></i> <span id="txt-tab-swift">Codice SwiftUI (Xcode)</span>
+            </button>
+            <button id="nav-performance-btn" class="nav-btn" onclick="switchTab('performance')">
+                <i class="fa-solid fa-bolt"></i> <span id="txt-tab-perf">Performance & Privacy</span>
+            </button>
+
+            <!-- Multi-Language Selector -->
+            <div class="lang-selector-wrapper">
+                <i class="fa-solid fa-globe text-cyan"></i>
+                <select id="lang-select" onchange="changeLanguage(this.value)" oninput="changeLanguage(this.value)">
+                    <option value="it">🇮🇹 Italiano</option>
+                    <option value="en">🇬🇧 English</option>
+                    <option value="es">🇪🇸 Español</option>
+                    <option value="fr">🇫🇷 Français</option>
+                </select>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+
+        <!-- TAB 1: INTERACTIVE SIMULATOR APP -->
+        <section id="tab-demo" class="tab-content active">
+            <div class="simulator-wrapper">
+                
+                <!-- Phone Frame Mockup -->
+                <div class="phone-frame">
+                    <div class="phone-notch">
+                        <div class="camera-dot"></div>
+                        <div class="speaker-bar"></div>
+                    </div>
+
+                    <div class="phone-status-bar">
+                        <span id="live-phone-time">19:42</span>
+                        <div class="status-icons">
+                            <i class="fa-solid fa-signal"></i>
+                            <i class="fa-solid fa-wifi"></i>
+                            <i class="fa-solid fa-battery-full" style="color: #10b981;"></i>
+                        </div>
+                    </div>
+
+                    <!-- App Header -->
+                    <div class="app-header">
+                        <div class="user-greeting">
+                            <div class="avatar">
+                                <i class="fa-solid fa-user-astronaut"></i>
+                            </div>
+                            <div>
+                                <span class="greeting-subtitle" id="txt-greeting-sub">Bentornato,</span>
+                                <h3 class="user-name">Marco Rossi</h3>
+                            </div>
+                        </div>
+                        <button class="pro-badge-btn" onclick="openPaywallModal()">
+                            <i class="fa-solid fa-crown text-gold"></i> PRO
+                        </button>
+                    </div>
+
+                    <!-- App Scrollable Body -->
+                    <div class="app-body">
+
+                        <!-- Monetization Banner (7-Day Trial) -->
+                        <div class="glass-card paywall-banner-card" onclick="openPaywallModal()">
+                            <div class="paywall-banner-content">
+                                <div class="trial-badge">
+                                    <i class="fa-solid fa-star"></i> 7 GIORNI GRATIS
+                                </div>
+                                <h4>LifeSync AI Pro</h4>
+                                <p id="txt-paywall-sub">Prova il backup illimitato per 7 giorni, poi 4,99 €/mese.</p>
+                            </div>
+                            <i class="fa-solid fa-chevron-right arrow-icon text-cyan"></i>
+                        </div>
+
+                        <!-- Daily Progress Overview -->
+                        <div class="glass-card status-overview">
+                            <div class="card-header">
+                                <span class="card-title" id="txt-card-today"><i class="fa-solid fa-calendar-day icon-glow"></i> Oggi, 17 Settembre</span>
+                                <span class="badge badge-success" id="txt-battery-usage">Batteria usata: 0.6%</span>
+                            </div>
+                            <div class="metrics-grid">
+                                <div class="metric-box">
+                                    <i class="fa-solid fa-shoe-prints metric-icon text-cyan"></i>
+                                    <span class="metric-value" id="val-steps">8.420</span>
+                                    <span class="metric-label" id="lbl-steps">Passi</span>
+                                </div>
+                                <div class="metric-box">
+                                    <i class="fa-solid fa-map-pin metric-icon text-purple"></i>
+                                    <span class="metric-value" id="val-places">4</span>
+                                    <span class="metric-label" id="lbl-places">Luoghi</span>
+                                </div>
+                                <div class="metric-box">
+                                    <i class="fa-solid fa-bed metric-icon text-pink"></i>
+                                    <span class="metric-value" id="val-sleep">7h 20m</span>
+                                    <span class="metric-label" id="lbl-sleep">Sonno (Health)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Communications & Messaging Activity Breakdown -->
+                        <div class="glass-card comms-card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fa-solid fa-comments icon-glow text-cyan"></i> <span id="txt-comms-title">Comunicazioni & Messaggi</span></span>
+                                <span class="badge badge-info" id="txt-comms-badge">DeviceActivity API</span>
+                            </div>
+                            <p class="card-desc" id="txt-comms-desc">iOS protegge i testi e le chiamate private, ma consente di monitorare il tempo di utilizzo e le notifiche delle app:</p>
+                            
+                            <div class="comms-grid">
+                                <div class="comm-item">
+                                    <div class="comm-icon bg-whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+                                    <div class="comm-info">
+                                        <span class="comm-name">WhatsApp</span>
+                                        <span class="comm-detail" id="val-wa-time">48m • 14 notif</span>
+                                    </div>
+                                </div>
+                                <div class="comm-item">
+                                    <div class="comm-icon bg-phone"><i class="fa-solid fa-phone"></i></div>
+                                    <div class="comm-info">
+                                        <span class="comm-name" id="lbl-phone-app">Telefono / Chiamate</span>
+                                        <span class="comm-detail" id="val-phone-time">22m • 3 chiamate</span>
+                                    </div>
+                                </div>
+                                <div class="comm-item">
+                                    <div class="comm-icon bg-messages"><i class="fa-solid fa-message"></i></div>
+                                    <div class="comm-info">
+                                        <span class="comm-name">SMS / iMessage</span>
+                                        <span class="comm-detail" id="val-sms-time">15m • 8 messaggi</span>
+                                    </div>
+                                </div>
+                                <div class="comm-item">
+                                    <div class="comm-icon bg-telegram"><i class="fa-brands fa-telegram"></i></div>
+                                    <div class="comm-info">
+                                        <span class="comm-name">Telegram</span>
+                                        <span class="comm-detail" id="val-tg-time">12m • 5 notifiche</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Useful Data: Quick Audio Note & Calendar -->
+                        <div class="glass-card extra-data-card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fa-solid fa-microphone text-gold"></i> <span id="txt-audio-title">Nota Vocale Rapida (Diario)</span></span>
+                                <button class="btn-sm-ghost" onclick="recordAudioNote()">
+                                    <i class="fa-solid fa-circle-dot text-pink"></i> <span id="btn-rec-audio">Registra</span>
+                                </button>
+                            </div>
+                            <p class="card-desc" id="txt-audio-desc">Aggiungi pensieri vocali al tuo backup che l'AI trascriverà ed integrerà nel report serale.</p>
+                            <div id="audio-notes-list" class="audio-list">
+                                <div class="audio-chip"><i class="fa-solid fa-waveform"></i> "<span id="txt-audio-chip-text">Idea riunione e lista spesa</span>" (0:34)</div>
+                            </div>
+                        </div>
+
+                        <!-- Timeline section -->
+                        <div class="section-title">
+                            <h4><i class="fa-solid fa-timeline"></i> <span id="txt-timeline-title">Timeline Movimenti & Attività</span></h4>
+                            <button class="btn-sm-ghost" onclick="addSimulatedEvent()">
+                                <i class="fa-solid fa-plus"></i> <span id="btn-add-event">Simula Evento</span>
+                            </button>
+                        </div>
+
+                        <div class="timeline-container" id="timeline-list">
+                            <!-- Populated dynamically by JS -->
+                        </div>
+
+                        <!-- AI Daily Assistant Summary Box -->
+                        <div class="glass-card ai-summary-card">
+                            <div class="ai-card-header">
+                                <div class="ai-title">
+                                    <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+                                    <h4><span id="txt-ai-card-title">Riepilogo Assistente AI</span></h4>
+                                </div>
+                                <button class="btn-primary-glow" id="generate-ai-btn" onclick="generateAISummary()">
+                                    <i class="fa-solid fa-rotate"></i> <span id="btn-generate-ai">Genera Ora</span>
+                                </button>
+                            </div>
+                            
+                            <div class="ai-summary-body" id="ai-summary-text">
+                                <p class="placeholder-text" id="txt-ai-placeholder">Fai clic su 'Genera Ora' o attendi le 23:00 per ricevere il tuo backup narrativo automatico della giornata.</p>
+                            </div>
+
+                            <div class="ai-card-footer">
+                                <span class="crypto-tag"><i class="fa-solid fa-lock"></i> <span id="txt-icloud-lock">Backup Cifrato iCloud</span></span>
+                                <span class="time-tag" id="last-generated-time">Non ancora generato</span>
+                            </div>
+                        </div>
+
+                        <!-- Backup Card -->
+                        <div class="glass-card backup-card">
+                            <div class="card-header">
+                                <span class="card-title"><i class="fa-solid fa-cloud-arrow-up text-cyan"></i> <span id="txt-backup-title">Stato Backup Giornaliero</span></span>
+                                <span class="badge badge-info">AES-256</span>
+                            </div>
+                            <p class="card-desc" id="txt-backup-desc">Tutti i log di movimento, tempo schermo e note vocali sono cifrati in locale.</p>
+                            <div class="backup-actions">
+                                <button class="btn-secondary" onclick="triggerBackupDownload()">
+                                    <i class="fa-solid fa-download"></i> <span id="btn-dl-json">Scarica JSON</span>
+                                </button>
+                                <button class="btn-secondary" onclick="simulateCloudSync()">
+                                    <i class="fa-solid fa-arrows-rotate"></i> <span id="btn-sync-icloud">Sync iCloud</span>
+                                </button>
+                            </div>
+                        </div>
+
+                    </div> <!-- End App Body -->
+
+                    <!-- App Tab Navigation -->
+                    <div class="app-tab-bar">
+                        <div class="app-tab-item active">
+                            <i class="fa-solid fa-house"></i>
+                            <span id="tab-app-today">Oggi</span>
+                        </div>
+                        <div class="app-tab-item">
+                            <i class="fa-solid fa-clock-rotate-left"></i>
+                            <span id="tab-app-history">Storico</span>
+                        </div>
+                        <div class="app-tab-item">
+                            <i class="fa-solid fa-chart-pie"></i>
+                            <span id="tab-app-stats">Statistiche</span>
+                        </div>
+                        <div class="app-tab-item" onclick="openPaywallModal()">
+                            <i class="fa-solid fa-crown text-gold"></i>
+                            <span id="tab-app-settings">Abbonamento</span>
+                        </div>
+                    </div>
+                </div> <!-- End Phone Frame -->
+
+                <!-- Side Control & Live Monitor Panel -->
+                <div class="control-panel">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-sliders"></i> <span id="txt-ctrl-title">Pannello Controllo & Monetizzazione</span></h3>
+                        <p id="txt-ctrl-subtitle">Simula l'abbonamento con 7 giorni di prova gratis (€4,99/mese) e l'invio su App Store.</p>
+                    </div>
+
+                    <!-- StoreKit 2 Paywall Preview Box -->
+                    <div class="glass-card panel-card highlight-box">
+                        <h4><i class="fa-solid fa-gem text-gold"></i> StoreKit 2 Monetizzazione</h4>
+                        <p class="card-desc">
+                            <strong>Abbonamento Configurato:</strong> €4,99 / mese con <strong>7 Giorni di Prova Gratis</strong>.
+                            <br><br>
+                            L'utente attiva la prova gratuitamente. Al termine dei 7 giorni, Apple addebiterà automaticamente l'abbonamento.
+                        </p>
+                        <button class="btn-primary-glow" onclick="openPaywallModal()">
+                            <i class="fa-solid fa-eye"></i> Apri Paywall Simulata
+                        </button>
+                    </div>
+
+                    <!-- Simulator Controls -->
+                    <div class="glass-card panel-card">
+                        <h4 id="txt-sim-events-title">Aggiungi Eventi Simulatati</h4>
+                        <div class="control-buttons-grid">
+                            <button class="btn-control" onclick="simulateLocation('Ufficio Central', 'Office')">
+                                <i class="fa-solid fa-briefcase text-cyan"></i> <span id="btn-sim-office">Arrivo Ufficio</span>
+                            </button>
+                            <button class="btn-control" onclick="simulateLocation('Palestra Fit Express', 'Gym')">
+                                <i class="fa-solid fa-dumbbell text-pink"></i> <span id="btn-sim-gym">Sessione Palestra</span>
+                            </button>
+                            <button class="btn-control" onclick="simulateMessagingActivity('WhatsApp', 15)">
+                                <i class="fa-brands fa-whatsapp text-green"></i> <span id="btn-sim-wa">+15m WhatsApp</span>
+                            </button>
+                            <button class="btn-control" onclick="simulateCallActivity()">
+                                <i class="fa-solid fa-phone text-gold"></i> <span id="btn-sim-call">Simula Chiamata</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Notification Simulator -->
+                    <div class="glass-card panel-card">
+                        <h4><i class="fa-solid fa-bell text-gold"></i> <span id="txt-notif-title">Test Notifica Schedulata</span></h4>
+                        <p class="card-desc" id="txt-notif-desc">Simula l'arrivo della notifica serale delle ore 23:00 con il riepilogo automatico.</p>
+                        <button class="btn-primary-glow" onclick="simulatePushNotification()">
+                            <i class="fa-solid fa-paper-plane"></i> <span id="btn-send-notif">Invia Notifica Notturna</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- TAB 2: SWIFTUI CODE STRUCTURE -->
+        <section id="tab-swift" class="tab-content">
+            <div class="swift-container">
+                <div class="swift-sidebar">
+                    <h4 class="sidebar-title"><i class="fa-brands fa-apple"></i> Struttura Xcode iOS</h4>
+                    <ul class="swift-file-list">
+                        <li class="swift-file-item active" onclick="loadSwiftFile('SubscriptionManager')">
+                            <i class="fa-solid fa-code text-gold"></i> SubscriptionManager.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('PaywallView')">
+                            <i class="fa-solid fa-code text-cyan"></i> PaywallView.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('LocalizationManager')">
+                            <i class="fa-solid fa-code text-purple"></i> LocalizationManager.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('DeviceActivityManager')">
+                            <i class="fa-solid fa-code text-pink"></i> DeviceActivityManager.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('LocationManager')">
+                            <i class="fa-solid fa-code text-green"></i> LocationManager.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('MotionTracker')">
+                            <i class="fa-solid fa-code text-cyan"></i> MotionTracker.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('DailyLogAggregator')">
+                            <i class="fa-solid fa-code text-purple"></i> DailyLogAggregator.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('AISummarizerService')">
+                            <i class="fa-solid fa-code text-gold"></i> AISummarizerService.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('ContentView')">
+                            <i class="fa-solid fa-code text-green"></i> ContentView.swift
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="swift-code-viewer">
+                    <div class="code-header">
+                        <span id="active-filename" class="filename">SubscriptionManager.swift</span>
+                        <button class="btn-sm-ghost" onclick="copySwiftCode()">
+                            <i class="fa-regular fa-copy"></i> Copia Codice
+                        </button>
+                    </div>
+                    <pre><code id="code-block" class="language-swift">
+// Seleziona un file a sinistra per visualizzare il codice nativo SwiftUI
+                    </code></pre>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 3: PERFORMANCE & PRIVACY ANALYSIS -->
+        <section id="tab-performance" class="tab-content">
+            <div class="performance-grid">
+                
+                <div class="glass-card perf-card">
+                    <div class="perf-icon-badge bg-gold">
+                        <i class="fa-solid fa-gem"></i>
+                    </div>
+                    <h3>Monetizzazione StoreKit 2</h3>
+                    <p>Integrazione nativa StoreKit 2 con l'abbonamento auto-rinnovabile da <strong>4,99 €/mese e 7 Giorni di Prova Gratis</strong> per massimizzare la conversione degli utenti.</p>
+                </div>
+
+                <div class="glass-card perf-card">
+                    <div class="perf-icon-badge bg-green">
+                        <i class="fa-solid fa-globe"></i>
+                    </div>
+                    <h3>Supporto Multi-lingua Nativo</h3>
+                    <p>L'app supporta la localizzazione automatica in <strong>Italiano, Inglese, Spagnolo e Francese</strong> tramite il nuovo formato <code>String(localized:)</code> e <code>Localizable.xcstrings</code> di Xcode.</p>
+                </div>
+
+                <div class="glass-card perf-card">
+                    <div class="perf-icon-badge bg-purple">
+                        <i class="fa-solid fa-comments"></i>
+                    </div>
+                    <h3>Tracciamento Chiamate & App Messaggi</h3>
+                    <p>Tramite le API <code>DeviceActivity</code> ed <code>EventKit</code> di Apple, l'app registra la durata e le notifiche di WhatsApp, SMS e Chiamate in modo conforme e senza violare la privacy dell'utente.</p>
+                </div>
+
+                <div class="glass-card perf-card">
+                    <div class="perf-icon-badge bg-cyan">
+                        <i class="fa-solid fa-battery-charging"></i>
+                    </div>
+                    <h3>Consumo Batteria &lt; 0.8%</h3>
+                    <p>Le chiamate di rete ed i sensori di posizione <code>CLVisit</code> lavorano esclusivamente in background passivo senza surriscaldare il dispositivo.</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Paywall Modal Overlay Simulation -->
+    <div id="paywall-modal" class="paywall-modal-overlay">
+        <div class="paywall-modal-card">
+            <button class="close-modal-btn" onclick="closePaywallModal()"><i class="fa-solid fa-xmark"></i></button>
+
+            <div class="paywall-header">
+                <div class="paywall-icon">
+                    <i class="fa-solid fa-brain"></i>
+                </div>
+                <h3>LifeSync AI Pro</h3>
+                <p>Sblocca il tuo assistente diario e backup completo</p>
+            </div>
+
+            <div class="trial-highlight-badge">
+                <i class="fa-solid fa-star"></i> 7 GIORNI DI PROVA GRATUITA <i class="fa-solid fa-star"></i>
+            </div>
+
+            <div class="paywall-features">
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
+                    <div>
+                        <strong>Riepilogo Serale AI Illimitato</strong>
+                        <span>Sintesi automatica di ogni giornata alle 23:00</span>
+                    </div>
+                </div>
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-location-dot text-cyan"></i>
+                    <div>
+                        <strong>Tracciamento Posizioni & Passi</strong>
+                        <span>CoreLocation Visit a basso consumo (<0.8% batt/giorno)</span>
+                    </div>
+                </div>
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-comments text-purple"></i>
+                    <div>
+                        <strong>Tempo Schermo Messaggi & Chiamate</strong>
+                        <span>Statistiche di utilizzo WhatsApp, Telefono ed SMS via DeviceActivity</span>
+                    </div>
+                </div>
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-lock text-green"></i>
+                    <div>
+                        <strong>Backup Cifrato illimitato iCloud</strong>
+                        <span>Protezione AES-256 nativa iOS dei tuoi dati personali</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn-primary-glow paywall-cta-btn" onclick="simulateSubscribe()">
+                Inizia i 7 Giorni Gratis
+            </button>
+            <span class="paywall-subtext">Poi 4,99 €/mese. Puoi annullare in qualsiasi momento nelle impostazioni del tuo Apple ID.</span>
+        </div>
+    </div>
+
+    <!-- Push Notification Overlay -->
+    <div id="push-notification-banner" class="notification-banner">
+        <div class="notif-icon">
+            <i class="fa-solid fa-brain"></i>
+        </div>
+        <div class="notif-content">
+            <span class="notif-app">LIFESYNC AI • ADESSO</span>
+            <h5 class="notif-title" id="txt-notif-banner-title">Riepilogo della Giornata Pronto! 🌙</h5>
+            <p class="notif-body" id="txt-notif-banner-body">Oggi hai fatto 8.420 passi, 48m di WhatsApp e visitato 4 luoghi. Tocca qui per leggere la sintesi completa.</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

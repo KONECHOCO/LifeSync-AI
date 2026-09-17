@@ -1,0 +1,27 @@
+# macOS / iOS
+.DS_Store
+*.swp
+*~
+*.xcworkspace
+!.xcworkspace/contents.xcworktypedata
+*.xcodeproj/*
+!.xcodeproj/project.pbxproj
+!.xcodeproj/xcshareddata/
+*.moved-aside
+*.app
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Xcode User Data
+xcuserdata/
+
+# Swift Package Manager
+.build/
+Packages/
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# Web Server & Logs
+node_modules/
+.venv/
+*.log
