@@ -1,0 +1,1 @@
+diario,ia,resumen,backup,nota de voz,tiempo de pantalla,ubicacion,habitos,bienestar,privacidad

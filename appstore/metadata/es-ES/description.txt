@@ -1,0 +1,25 @@
+LifeSync AI es tu compañero diario privado, directamente en el dispositivo: recoge en silencio los momentos de tu día y los convierte cada noche en una historia clara y fácil de leer.
+
+QUÉ HACE LIFESYNC AI
+• Registro de ubicación de bajo consumo — usa la detección de visitas y cambios significativos de ubicación para anotar por dónde has pasado el día, consumiendo menos del 0,8% de batería al día.
+• Tiempo de pantalla de mensajería — descubre cuántos minutos dedicaste a llamadas y apps de mensajería, cumpliendo totalmente las normas de privacidad DeviceActivity de Apple.
+• Diario de voz en un toque — graba un pensamiento rápido y deja que LifeSync AI lo transcriba y lo incorpore a tu backup diario.
+• Resumen diario automático con IA — cada noche a las 23:00, LifeSync AI escribe una breve narración de tu día a partir de tu actividad, ubicación y notas de voz.
+• Backup cifrado — tus registros diarios se guardan localmente y, opcionalmente, en iCloud, protegidos con cifrado AES-256.
+• Creada de forma nativa en italiano, inglés, español y francés, con más idiomas próximamente.
+
+POR QUÉ USARLA
+La mayoría de las apps de diario te piden sentarte a escribir. LifeSync AI hace lo contrario: observa en segundo plano la forma de tu día y te entrega por la noche un resumen privado ya terminado, así que llevar un diario toma segundos, no minutos.
+
+LIFESYNC PRO
+Actualiza a LifeSync Pro para una experiencia sin anuncios:
+• Sin vídeos publicitarios antes de backups o exportaciones
+• Resúmenes diarios con IA ilimitados
+• Procesamiento prioritario para la transcripción de voz
+LifeSync Pro cuesta 4,99€/mes con 7 días de prueba gratuita. El pago se cargará a tu cuenta de Apple ID al confirmar la compra. Las suscripciones se renuevan automáticamente a menos que se desactive la renovación automática al menos 24 horas antes de que finalice el periodo actual. Puedes gestionar o cancelar tu suscripción en cualquier momento desde los ajustes de tu cuenta de Apple ID.
+
+LA PRIVACIDAD PRIMERO
+LifeSync AI está construida enteramente sobre los frameworks de Apple (CoreLocation, CoreMotion, DeviceActivity, HealthKit). Tus datos permanecen en tu dispositivo y en tu propia cuenta de iCloud: no los vendemos ni los compartimos.
+
+Términos de uso: https://TODO-add-your-eula-url
+Política de privacidad: https://TODO-add-your-privacy-policy-url
