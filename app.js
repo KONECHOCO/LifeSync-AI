@@ -1,4 +1,4 @@
-// LifeSync AI - Complete i18n, StoreKit 2 Paywall & Simulator Logic
+// LifeSync AI - Complete i18n, StoreKit 2 Paywall, Unity Ads & Simulator Logic
 
 // Initial State
 let state = {
@@ -47,7 +47,7 @@ const i18n = {
         btnAddEvent: "Simula Evento",
         aiCardTitle: "Riepilogo Assistente AI",
         btnGenerateAi: "Genera Ora",
-        aiPlaceholder: "Fai clic su 'Genera Ora' o attendi le 23:00 per ricevere il tuo backup narrativo automatico della giornata.",
+        aiPlaceholder: "Fai clic su 'Genera Ora' o guarda uno spot Unity Ads per ricevere la sintesi AI della giornata.",
         icloudLock: "Backup Cifrato iCloud",
         backupTitle: "Stato Backup Giornaliero",
         backupDesc: "Tutti i log di movimento, tempo schermo e note vocali sono cifrati in locale.",
@@ -58,7 +58,7 @@ const i18n = {
         appStats: "Statistiche",
         appSettings: "Abbonamento",
         ctrlTitle: "Pannello Controllo & Monetizzazione",
-        ctrlSubtitle: "Simula l'abbonamento con 7 giorni di prova gratis (€4,99/mese) e l'invio su App Store.",
+        ctrlSubtitle: "Simula l'abbonamento con 7 giorni di prova gratis (€4,99/mese) e la rete Unity Ads.",
         privacyFaqTitle: "Registro Chiamate & SMS su iOS",
         privacyFaqDesc: "Per la massima privacy dell'App Store, iOS non permette di leggere testi o registro chiamate private. Tuttavia tramite DeviceActivity, EventKit e Siri Shortcuts è possibile monitorare minutaggio, sblocchi e trascrizioni vocali autorizzate.",
         simEventsTitle: "Aggiungi Eventi Simulatati",
@@ -109,7 +109,7 @@ const i18n = {
         btnAddEvent: "Simulate Event",
         aiCardTitle: "AI Assistant Summary",
         btnGenerateAi: "Generate Now",
-        aiPlaceholder: "Click 'Generate Now' or wait until 11:00 PM to receive your daily automated narrative backup.",
+        aiPlaceholder: "Click 'Generate Now' or watch a Unity Ads video to receive your daily automated narrative backup.",
         icloudLock: "iCloud Encrypted Backup",
         backupTitle: "Daily Backup Status",
         backupDesc: "All movement logs, screen time, and audio notes are encrypted locally.",
@@ -120,7 +120,7 @@ const i18n = {
         appStats: "Stats",
         appSettings: "Subscription",
         ctrlTitle: "Control & Monetization Panel",
-        ctrlSubtitle: "Simulate €4.99/mo subscription with 7-day free trial & App Store submission.",
+        ctrlSubtitle: "Simulate €4.99/mo subscription with 7-day free trial & Unity Ads network.",
         privacyFaqTitle: "Call Logs & SMS on iOS",
         privacyFaqDesc: "To ensure App Store compliance, iOS blocks reading raw call history & private SMS texts. DeviceActivity, EventKit & Siri Shortcuts enable tracking usage minutes, pickups & authorized transcripts.",
         simEventsTitle: "Add Simulated Events",
@@ -171,7 +171,7 @@ const i18n = {
         btnAddEvent: "Simular Evento",
         aiCardTitle: "Resumen de Asistente IA",
         btnGenerateAi: "Generar Ahora",
-        aiPlaceholder: "Haz clic en 'Generar Ahora' o espera a las 23:00 para recibir tu resumen automático.",
+        aiPlaceholder: "Haz clic en 'Generar Ahora' o mira un anuncio de Unity Ads para recibir tu resumen.",
         icloudLock: "Copia Cifrada en iCloud",
         backupTitle: "Estado de la Copia Diaria",
         backupDesc: "Todos los registros de movimiento y voz están cifrados localmente.",
@@ -182,7 +182,7 @@ const i18n = {
         appStats: "Estadísticas",
         appSettings: "Suscripción",
         ctrlTitle: "Panel de Control y Monetización",
-        ctrlSubtitle: "Simula la suscripción de 4,99 €/mes con 7 días gratis y el envío a App Store.",
+        ctrlSubtitle: "Simula la suscripción de 4,99 €/mes con 7 días gratis y Unity Ads.",
         privacyFaqTitle: "Registro de Llamadas y SMS en iOS",
         privacyFaqDesc: "Por normas de App Store, iOS no permite leer mensajes de texto ni llamadas privadas. DeviceActivity y EventKit permiten registrar minutos de uso y llamadas en calendario.",
         simEventsTitle: "Añadir Eventos Simulados",
@@ -225,7 +225,7 @@ const i18n = {
         commsBadge: "DeviceActivity API",
         commsDesc: "iOS protège les SMS & appels privés, mais permet de mesurer le temps d'écran et les notifications :",
         lblPhoneApp: "Téléphone / Appels",
-        audioTitle: "Note Vocale Rapide (Journal)",
+        audioTitle: "Note Vocale Rapida (Journal)",
         btnRecAudio: "Enregistrer",
         audioDesc: "Ajoutez vos pensées vocales; l'IA les transcrira et résumera ce soir.",
         audioChip: "Idée de réunion & liste de courses",
@@ -233,7 +233,7 @@ const i18n = {
         btnAddEvent: "Simuler Événement",
         aiCardTitle: "Résumé de l'Assistant IA",
         btnGenerateAi: "Générer Maintenant",
-        aiPlaceholder: "Cliquez sur 'Générer Maintenant' ou attendez 23h00 pour recevoir votre résumé quotidien.",
+        aiPlaceholder: "Cliquez sur 'Générer Maintenant' ou regardez une publicité Unity Ads pour débloquer votre résumé.",
         icloudLock: "Sauvegarde Chiffrée iCloud",
         backupTitle: "Statut de la Sauvegarde",
         backupDesc: "Tous vos journaux de mouvement et vocaux sont chiffrés localement.",
@@ -244,7 +244,7 @@ const i18n = {
         appStats: "Statistiques",
         appSettings: "Abonnement",
         ctrlTitle: "Panneau de Contrôle & Monétisation",
-        ctrlSubtitle: "Simulez l'abonnement 4,99 €/mois (7 jours gratuits) et la soumission App Store.",
+        ctrlSubtitle: "Simulez l'abonnement 4,99 €/mois (7 jours gratuits) et le réseau Unity Ads.",
         privacyFaqTitle: "Journal d'Appels & SMS sur iOS",
         privacyFaqDesc: "Pour respecter l'App Store, iOS empêche la lecture directe des SMS & appels. DeviceActivity et EventKit permettent de suivre l'utilisation et les rendez-vous.",
         simEventsTitle: "Ajouter des Événements Simulés",
@@ -276,6 +276,26 @@ const i18n = {
 
 // Swift Code Samples for Viewer
 const swiftFiles = {
+    'UnityAdsManager': `import Foundation
+import UIKit
+import StoreKit
+
+/// Manager Unity Ads Monetization (Game ID: 687287710)
+final class UnityAdsManager: NSObject, ObservableObject {
+    static let shared = UnityAdsManager()
+    static let unityGameID = "687287710"
+    static let rewardedPlacementID = "Rewarded_iOS"
+    static let interstitialPlacementID = "Interstitial_iOS"
+    
+    @Published var isRewardedAdReady: Bool = true
+    
+    func showRewardedAd(from viewController: UIViewController, completion: @escaping (Bool) -> Void) {
+        // Mostra spot video e concede la ricompensa al termine
+        print("🎬 Unity Ads Video Rewarded in riproduzione...")
+        completion(true)
+    }
+}`,
+
     'SubscriptionManager': `import Foundation
 import StoreKit
 
@@ -286,7 +306,6 @@ final class SubscriptionManager: ObservableObject {
     
     @Published var subscriptionProduct: Product?
     @Published var isSubscribed: Bool = false
-    @Published var isLoading: Bool = false
     
     @MainActor
     func purchaseMonthlySubscription() async -> Bool {
@@ -301,9 +320,7 @@ final class SubscriptionManager: ObservableObject {
 }`,
 
     'PaywallView': `import SwiftUI
-import StoreKit
 
-/// Schermata Paywall per Abbonamento €4,99/mese con 7 Giorni Gratis
 struct PaywallView: View {
     @Environment(\\.dismiss) private var dismiss
     @StateObject private var subManager = SubscriptionManager.shared
@@ -314,18 +331,6 @@ struct PaywallView: View {
             VStack(spacing: 20) {
                 Text("LifeSync AI Pro").font(.largeTitle).bold()
                 Text("7 GIORNI DI PROVA GRATUITA").font(.caption).bold().foregroundColor(.yellow)
-                
-                Button("Inizia 7 Giorni Gratis") {
-                    Task {
-                        if await subManager.purchaseMonthlySubscription() {
-                            dismiss()
-                        }
-                    }
-                }
-                .font(.headline)
-                .padding()
-                .background(LinearGradient(colors: [.cyan, .purple], startPoint: .leading, endPoint: .trailing))
-                .cornerRadius(16)
             }
         }
     }
@@ -393,8 +398,30 @@ document.addEventListener("DOMContentLoaded", () => {
     
     state.timeline = [...i18n.it.timelineItems];
     renderTimeline();
-    loadSwiftFile('SubscriptionManager');
+    loadSwiftFile('UnityAdsManager');
 });
+
+// Unity Ads Video Modal Simulation
+function simulateUnityAdVideo() {
+    const modal = document.getElementById('unity-ad-video-modal');
+    const timerEl = document.getElementById('unity-ad-timer');
+    if (!modal) return;
+    
+    modal.classList.add('active');
+    let secondsLeft = 5;
+    if (timerEl) timerEl.textContent = `00:0${secondsLeft}`;
+    
+    const countdown = setInterval(() => {
+        secondsLeft--;
+        if (timerEl) timerEl.textContent = `00:0${secondsLeft}`;
+        if (secondsLeft <= 0) {
+            clearInterval(countdown);
+            modal.classList.remove('active');
+            alert("🎬 Unity Ads Rewarded Video Completato! Ricompensa registrata. Ora generiamo il tuo report AI.");
+            generateAISummary();
+        }
+    }, 1000);
+}
 
 // Paywall Modal Functions
 function openPaywallModal() {
@@ -641,7 +668,7 @@ function triggerBackupDownload() {
     const backupData = {
         app: "LifeSync AI",
         language: state.currentLang,
-        subscriptionStatus: state.isProSubscribed ? "Active 7-Day Free Trial" : "Free Tier",
+        subscriptionStatus: state.isProSubscribed ? "Active 7-Day Free Trial" : "Free Tier (Unity Ads Enabled)",
         exportDate: new Date().toISOString(),
         user: "Marco Rossi",
         dailyMetrics: {

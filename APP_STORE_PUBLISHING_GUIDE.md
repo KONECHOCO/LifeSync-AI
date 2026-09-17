@@ -1,44 +1,40 @@
-# 🚀 Guida Completa per la Pubblicazione su App Store e Monetizzazione (LifeSync AI)
+# 🚀 Guida Completa per la Pubblicazione su App Store, Monetizzazione Ibrida (Unity Ads + StoreKit 2)
 
-Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync AI** su **App Store** con la monetizzazione ad **Abbonamento Auto-Rinnovabile (€4,99/mese con 7 Giorni di Prova Gratuita)**.
-
----
-
-## 📋 REQUISITI PRELIMINARI
-
-1. **Account Apple Developer Program**:
-   Occorre registrarsi su [developer.apple.com](https://developer.apple.com) ($99/anno).
-2. **Mac con Xcode (versione 15.0 o successiva)**:
-   Scaricabile gratuitamente dal Mac App Store.
-3. **Repository GitHub**:
-   Salva e gestisci le versioni del codice sorgente su GitHub.
+Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync AI** su **App Store** con una strategia di **Monetizzazione Ibrida**:
+1. **Utenti Free**: Video Ads Rewarded ed Interstitial tramite **Unity Ads (Cloud Unity Organization Game ID: `687287710`)**.
+2. **Utenti Pro**: Abbonamento Auto-Rinnovabile senza annunci (**€4,99/mese con 7 Giorni di Prova Gratis**).
 
 ---
 
-## 💰 PASSAGGIO 1: Configurazione Monetizzazione su App Store Connect
+## 🎬 PARTE 1: Configurazione Unity Ads (Cloud Unity)
 
-1. Accedi a [App Store Connect](https://appstoreconnect.apple.com) -> **Le mie App** -> **Nuova App**.
-2. **Identificatore App (Bundle ID)**: Crea un Bundle ID univoco (es. `com.lifesync.ai`).
-3. Vai nella sezione **Abbonamenti**:
-   - Clicca su **Crea Gruppo di Abbonamenti** (Nome: `LifeSync Pro`).
-   - Aggiungi un **Prodotto Abbonamento Auto-Rinnovabile**:
-     - **ID Prodotto**: `com.lifesync.ai.pro.monthly`
-     - **Prezzo**: €4,99 / mese (o $4.99).
-   - **Offerta Introduttiva (7 Giorni di Prova Gratis)**:
-     - Clicca su **Offerte Introduttive** -> Seleziona **Prova Gratuita (Free Trial)**.
-     - Durata: **1 Settimana (7 giorni)**.
-
-> ℹ️ *Gli utenti scaricheranno l'app, attiveranno la prova di 7 giorni a costo €0.00, e solo all'8° giorno Apple addebiterà automaticamente €4,99/mese.*
+1. Accedi al tuo dashboard **Unity Cloud Monetization**:
+   [cloud.unity.com/monetization-v2](https://cloud.unity.com/organizations/6872877102477/monetization-v2/apps)
+2. **Game ID iOS**: Registra la tua app `LifeSync AI iOS` (Game ID generato: `687287710`).
+3. **Placements da abilitare**:
+   - `Rewarded_iOS`: Video spot per consentire agli utenti Free di sbloccare la sintesi AI giornaliera.
+   - `Interstitial_iOS`: Spot video prima dell'esportazione del backup JSON.
+   - `Banner_iOS`: Banner pubblicitario opzionale in basso.
 
 ---
 
-## 📱 PASSAGGIO 2: Aprire il Progetto su Xcode e Associare i File
+## 💰 PARTE 2: Configurazione Abbonamento StoreKit 2 (7 Giorni Gratis)
 
-1. Apri Xcode su Mac e crea un nuovo **iOS App Project** denominato `LifeSyncAI` (Bundle ID: `com.lifesync.ai`).
-2. Trascina all'interno del progetto Xcode tutti i file contenuti nella cartella `ios/LifeSyncAI/`:
-   - `LifeSyncApp.swift`
+1. Accedi a [App Store Connect](https://appstoreconnect.apple.com) -> **Le mie App**.
+2. Vai nella sezione **Abbonamenti**:
+   - Gruppo di Abbonamenti: `LifeSync Pro`.
+   - **ID Prodotto**: `com.lifesync.ai.pro.monthly`
+   - **Prezzo**: €4,99 / mese.
+   - **Offerta Introduttiva**: **7 Giorni di Prova Gratuita** (Free Trial).
+
+---
+
+## 📱 PARTE 3: Aprire il Progetto su Xcode e Associare i File
+
+1. Apri Xcode su Mac ed importa la cartella `ios/LifeSyncAI/`:
+   - `UnityAdsManager.swift` (Manager SDK Unity Ads)
    - `SubscriptionManager.swift` (StoreKit 2)
-   - `PaywallView.swift` (Paywall 7 Giorni Gratis)
+   - `PaywallView.swift` (Paywall Pro)
    - `LocalizationManager.swift` (Multi-lingua IT, EN, ES, FR)
    - `DeviceActivityManager.swift` (Screen Time & Messaging)
    - `LocationManager.swift`
@@ -47,39 +43,22 @@ Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync A
    - `AISummarizerService.swift`
    - `ContentView.swift`
 
-3. In **Signing & Capabilities** su Xcode:
-   - Aggiungi **In-App Purchase**.
-   - Aggiungi **Background Modes** (Location updates, Background processing).
-   - Aggiungi **Family Controls (DeviceActivity)** per il tracciamento del tempo schermo delle app di messaggistica.
+2. Aggiungi la dipendenza **Unity Ads iOS SDK** in Xcode:
+   - In Xcode: **File** -> **Add Package Dependencies** -> URL: `https://github.com/Unity-Technologies/unity-ads-ios-advertiser-sdk.git`
 
 ---
 
-## 🌐 PASSAGGIO 3: Caricare il Progetto su GitHub
+## 🌐 PARTE 4: Salvare e Caricare su GitHub
 
-Per salvare il tuo progetto su GitHub dal terminale:
+Dal terminale nella cartella del progetto:
 
 ```bash
-# 1. Inizializza Git (se non già fatto)
-git init
-
-# 2. Aggiungi tutti i file ed effettua il commit
+# Salva le modifiche in Git
 git add .
-git commit -m "Versione 1.0.0: LifeSync AI con StoreKit 2 (7 giorni prova gratis, €4,99/mese) e multi-lingua"
+git commit -m "Integrazione Unity Ads SDK e monetizzazione abbonamento Pro"
 
-# 3. Collega il tuo repository remoto GitHub e carica il codice
+# Carica su GitHub
 git remote add origin https://github.com/IL_TUO_USERNAME/LifeSync-AI.git
 git branch -M main
 git push -u origin main
 ```
-
----
-
-## 📝 PASSAGGIO 4: Compilazione & Invio all'App Review
-
-1. Su Xcode, seleziona la destinazione **Any iOS Device (arm64)**.
-2. Vai nel menu **Product** -> **Archive**.
-3. Al termine dell'Archiviazione, clicca su **Distribute App** -> **TestFlight & App Store**.
-4. Su App Store Connect:
-   - Compila la descrizione dell'app, gli screenshot dell'iPhone e l'URL della Privacy Policy.
-   - Associa l'abbonamento `com.lifesync.ai.pro.monthly` alla scheda della versione.
-   - Clicca su **Invia per la Revisione (App Review)**.

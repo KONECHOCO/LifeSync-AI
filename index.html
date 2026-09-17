@@ -201,7 +201,7 @@
                             <!-- Populated dynamically by JS -->
                         </div>
 
-                        <!-- AI Daily Assistant Summary Box -->
+                        <!-- AI Daily Assistant Summary Box with Unity Ads Option -->
                         <div class="glass-card ai-summary-card">
                             <div class="ai-card-header">
                                 <div class="ai-title">
@@ -212,9 +212,17 @@
                                     <i class="fa-solid fa-rotate"></i> <span id="btn-generate-ai">Genera Ora</span>
                                 </button>
                             </div>
+
+                            <!-- Unity Ads Rewarded Option for Free Tier Users -->
+                            <div class="unity-ads-reward-box">
+                                <span><i class="fa-brands fa-unity text-cyan"></i> Utente Free? Guarda uno spot Unity Ads:</span>
+                                <button class="btn-unity-ad" onclick="simulateUnityAdVideo()">
+                                    <i class="fa-solid fa-play"></i> Guarda Spot Ads
+                                </button>
+                            </div>
                             
                             <div class="ai-summary-body" id="ai-summary-text">
-                                <p class="placeholder-text" id="txt-ai-placeholder">Fai clic su 'Genera Ora' o attendi le 23:00 per ricevere il tuo backup narrativo automatico della giornata.</p>
+                                <p class="placeholder-text" id="txt-ai-placeholder">Fai clic su 'Genera Ora' o guarda uno spot Unity Ads per ricevere la sintesi AI della giornata.</p>
                             </div>
 
                             <div class="ai-card-footer">
@@ -267,16 +275,27 @@
                 <div class="control-panel">
                     <div class="panel-header">
                         <h3><i class="fa-solid fa-sliders"></i> <span id="txt-ctrl-title">Pannello Controllo & Monetizzazione</span></h3>
-                        <p id="txt-ctrl-subtitle">Simula l'abbonamento con 7 giorni di prova gratis (€4,99/mese) e l'invio su App Store.</p>
+                        <p id="txt-ctrl-subtitle">Simula l'abbonamento con 7 giorni di prova gratis (€4,99/mese) e la rete Unity Ads.</p>
+                    </div>
+
+                    <!-- Unity Ads Panel -->
+                    <div class="glass-card panel-card unity-card">
+                        <h4><i class="fa-brands fa-unity text-cyan"></i> Unity Ads Monetization</h4>
+                        <p class="card-desc">
+                            <strong>Game ID:</strong> 687287710 (Cloud Unity)<br>
+                            I collegamenti Rewarded Video ed Interstitial consentono di guadagnare dagli utenti Free che guardano gli annunci prima di sbloccare il report AI.
+                        </p>
+                        <button class="btn-control btn-unity-test" onclick="simulateUnityAdVideo()">
+                            <i class="fa-solid fa-film text-gold"></i> Simula Spot Rewarded Video Unity Ads
+                        </button>
                     </div>
 
                     <!-- StoreKit 2 Paywall Preview Box -->
                     <div class="glass-card panel-card highlight-box">
-                        <h4><i class="fa-solid fa-gem text-gold"></i> StoreKit 2 Monetizzazione</h4>
+                        <h4><i class="fa-solid fa-gem text-gold"></i> StoreKit 2 Monetizzazione Pro</h4>
                         <p class="card-desc">
-                            <strong>Abbonamento Configurato:</strong> €4,99 / mese con <strong>7 Giorni di Prova Gratis</strong>.
-                            <br><br>
-                            L'utente attiva la prova gratuitamente. Al termine dei 7 giorni, Apple addebiterà automaticamente l'abbonamento.
+                            <strong>Abbonamento Configurato:</strong> €4,99 / mese con <strong>7 Giorni di Prova Gratis</strong>.<br>
+                            Rimuove tutti i video Unity Ads per gli utenti paganti.
                         </p>
                         <button class="btn-primary-glow" onclick="openPaywallModal()">
                             <i class="fa-solid fa-eye"></i> Apri Paywall Simulata
@@ -321,7 +340,10 @@
                 <div class="swift-sidebar">
                     <h4 class="sidebar-title"><i class="fa-brands fa-apple"></i> Struttura Xcode iOS</h4>
                     <ul class="swift-file-list">
-                        <li class="swift-file-item active" onclick="loadSwiftFile('SubscriptionManager')">
+                        <li class="swift-file-item active" onclick="loadSwiftFile('UnityAdsManager')">
+                            <i class="fa-brands fa-unity text-cyan"></i> UnityAdsManager.swift
+                        </li>
+                        <li class="swift-file-item" onclick="loadSwiftFile('SubscriptionManager')">
                             <i class="fa-solid fa-code text-gold"></i> SubscriptionManager.swift
                         </li>
                         <li class="swift-file-item" onclick="loadSwiftFile('PaywallView')">
@@ -353,7 +375,7 @@
 
                 <div class="swift-code-viewer">
                     <div class="code-header">
-                        <span id="active-filename" class="filename">SubscriptionManager.swift</span>
+                        <span id="active-filename" class="filename">UnityAdsManager.swift</span>
                         <button class="btn-sm-ghost" onclick="copySwiftCode()">
                             <i class="fa-regular fa-copy"></i> Copia Codice
                         </button>
@@ -370,11 +392,19 @@
             <div class="performance-grid">
                 
                 <div class="glass-card perf-card">
+                    <div class="perf-icon-badge bg-cyan">
+                        <i class="fa-brands fa-unity"></i>
+                    </div>
+                    <h3>Unity Ads Monetizzazione Hybrid</h3>
+                    <p>Integrazione nativa dell'SDK <strong>Unity Ads (Game ID: 687287710)</strong> per monetizzare gli utenti free tramite Rewarded Video Ads prima di sbloccare il riepilogo quotidiano.</p>
+                </div>
+
+                <div class="glass-card perf-card">
                     <div class="perf-icon-badge bg-gold">
                         <i class="fa-solid fa-gem"></i>
                     </div>
                     <h3>Monetizzazione StoreKit 2</h3>
-                    <p>Integrazione nativa StoreKit 2 con l'abbonamento auto-rinnovabile da <strong>4,99 €/mese e 7 Giorni di Prova Gratis</strong> per massimizzare la conversione degli utenti.</p>
+                    <p>Integrazione nativa StoreKit 2 con l'abbonamento auto-rinnovabile da <strong>4,99 €/mese e 7 Giorni di Prova Gratis</strong> per rimuovere gli annunci e sbloccare funzioni pro.</p>
                 </div>
 
                 <div class="glass-card perf-card">
@@ -390,21 +420,28 @@
                         <i class="fa-solid fa-comments"></i>
                     </div>
                     <h3>Tracciamento Chiamate & App Messaggi</h3>
-                    <p>Tramite le API <code>DeviceActivity</code> ed <code>EventKit</code> di Apple, l'app registra la durata e le notifiche di WhatsApp, SMS e Chiamate in modo conforme e senza violare la privacy dell'utente.</p>
-                </div>
-
-                <div class="glass-card perf-card">
-                    <div class="perf-icon-badge bg-cyan">
-                        <i class="fa-solid fa-battery-charging"></i>
-                    </div>
-                    <h3>Consumo Batteria &lt; 0.8%</h3>
-                    <p>Le chiamate di rete ed i sensori di posizione <code>CLVisit</code> lavorano esclusivamente in background passivo senza surriscaldare il dispositivo.</p>
+                    <p>Tramite le API <code>DeviceActivity</code> ed <code>EventKit</code> di Apple, l'app registra la durata e le notifiche di WhatsApp, SMS e Chiamate in modo conforme ed ecologico.</p>
                 </div>
 
             </div>
         </section>
 
     </main>
+
+    <!-- Unity Ads Video Overlay Simulation -->
+    <div id="unity-ad-video-modal" class="unity-ad-modal-overlay">
+        <div class="unity-ad-player">
+            <div class="unity-ad-header">
+                <span class="unity-ad-tag"><i class="fa-brands fa-unity"></i> Unity Ads Rewarded Video</span>
+                <span id="unity-ad-timer">00:05</span>
+            </div>
+            <div class="unity-ad-video-placeholder">
+                <i class="fa-solid fa-play-circle fa-bounce text-cyan"></i>
+                <p>Riproduzione Spot Unity Ads in corso...</p>
+                <span class="ad-reward-sub">Sblocco del riepilogo AI al termine del video</span>
+            </div>
+        </div>
+    </div>
 
     <!-- Paywall Modal Overlay Simulation -->
     <div id="paywall-modal" class="paywall-modal-overlay">
@@ -416,7 +453,7 @@
                     <i class="fa-solid fa-brain"></i>
                 </div>
                 <h3>LifeSync AI Pro</h3>
-                <p>Sblocca il tuo assistente diario e backup completo</p>
+                <p>Sblocca il tuo assistente diario e backup senza annunci</p>
             </div>
 
             <div class="trial-highlight-badge">
@@ -424,6 +461,13 @@
             </div>
 
             <div class="paywall-features">
+                <div class="paywall-feature-item">
+                    <i class="fa-solid fa-ban text-red"></i>
+                    <div>
+                        <strong>Nessuna Pubblicità (No Unity Ads)</strong>
+                        <span>Elimina completamente gli spot video rewarded</span>
+                    </div>
+                </div>
                 <div class="paywall-feature-item">
                     <i class="fa-solid fa-wand-magic-sparkles text-gold"></i>
                     <div>
@@ -436,13 +480,6 @@
                     <div>
                         <strong>Tracciamento Posizioni & Passi</strong>
                         <span>CoreLocation Visit a basso consumo (<0.8% batt/giorno)</span>
-                    </div>
-                </div>
-                <div class="paywall-feature-item">
-                    <i class="fa-solid fa-comments text-purple"></i>
-                    <div>
-                        <strong>Tempo Schermo Messaggi & Chiamate</strong>
-                        <span>Statistiche di utilizzo WhatsApp, Telefono ed SMS via DeviceActivity</span>
                     </div>
                 </div>
                 <div class="paywall-feature-item">
