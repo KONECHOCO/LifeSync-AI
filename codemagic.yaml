@@ -3,6 +3,8 @@ workflows:
     name: LifeSync AI - iOS App Store
     instance_type: mac_mini_m2
     max_build_duration: 60
+    integrations:
+      app_store_connect: Ikonet Solutions
     environment:
       xcode: latest
       cocoapods: default
