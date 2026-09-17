@@ -79,7 +79,7 @@ final class UnityAdsManager: NSObject, ObservableObject {
             return
         }
         isRewardedAdReady = false
-        UnityAds.show(viewController: viewController, placementId: UnityAdsManager.rewardedPlacementID, showDelegate: self)
+        UnityAds.show(viewController, placementId: UnityAdsManager.rewardedPlacementID, showDelegate: self)
         #else
         // Simulazione locale per testing
         print("Unity Ads Rewarded riprodotto con successo.")
@@ -95,7 +95,7 @@ final class UnityAdsManager: NSObject, ObservableObject {
         #if canImport(UnityAds)
         if isInterstitialReady {
             isInterstitialReady = false
-            UnityAds.show(viewController: viewController, placementId: UnityAdsManager.interstitialPlacementID, showDelegate: self)
+            UnityAds.show(viewController, placementId: UnityAdsManager.interstitialPlacementID, showDelegate: self)
         } else {
             UnityAds.load(UnityAdsManager.interstitialPlacementID, loadDelegate: self)
         }
@@ -137,7 +137,7 @@ extension UnityAdsManager: UnityAdsInitializationDelegate, UnityAdsShowDelegate,
         print("⚠️ Unity Ad errore caricamento [\(placementId)]: \(message)")
     }
     
-    func unityAdsShowComplete(_ placementId: String, withFinishState state: UnityAdsShowCompletionState) {
+    func unityAdsShowComplete(_ placementId: String, withFinish state: UnityAdsShowCompletionState) {
         if state == UnityAdsShowCompletionState.showCompletionStateCompleted {
             print("🎁 Utente ha guardato tutto il video Unity Ads! Ricompensa concessa.")
             DispatchQueue.main.async {
