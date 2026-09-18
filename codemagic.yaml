@@ -32,16 +32,15 @@ workflows:
           brew install xcodegen
       - name: Set unique build number
         script: |
-          LATEST=$(app-store-connect get-latest-testflight-build-number "$APP_STORE_APP_ID" 2>/dev/null | tail -n 1 | tr -dc '0-9')
-          if [ -z "$LATEST" ]; then LATEST=0; fi
-          BUILD_NUMBER=$((LATEST + 1))
-          if [ "$BUILD_NUMBER" -le "${PROJECT_BUILD_NUMBER:-0}" ]; then BUILD_NUMBER=$((PROJECT_BUILD_NUMBER + 1)); fi
-          echo "Using build number $BUILD_NUMBER (latest on App Store Connect: $LATEST)"
+          # UTC timestamp (e.g. 202609181530): always increasing, never collides with earlier uploads
+          BUILD_NUMBER=$(date -u +%Y%m%d%H%M)
+          echo "Using build number $BUILD_NUMBER"
           sed -i '' "s/CURRENT_PROJECT_VERSION: \".*\"/CURRENT_PROJECT_VERSION: \"$BUILD_NUMBER\"/" project.yml
           grep CURRENT_PROJECT_VERSION project.yml
       - name: Generate Xcode project
         script: |
           xcodegen generate
+          xcodebuild -project LifeSyncAI.xcodeproj -scheme LifeSyncAI -showBuildSettings 2>/dev/null | grep -E "CURRENT_PROJECT_VERSION|MARKETING_VERSION"
       - name: Install iOS dependencies
         script: |
           pod install --repo-update
