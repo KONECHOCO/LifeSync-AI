@@ -21,11 +21,20 @@ targets:
         excludes:
           - Resources/**
     resources:
-      - path: ios/LifeSyncAI/Resources
+      - path: ios/LifeSyncAI/Resources/Assets.xcassets
+      - path: ios/LifeSyncAI/Icon-60@2x.png
+      - path: ios/LifeSyncAI/Icon-60@3x.png
+      - path: ios/LifeSyncAI/Icon-76@2x.png
+      - path: ios/LifeSyncAI/Icon-83.5@2x.png
     info:
       path: ios/LifeSyncAI/Info.plist
       properties:
         CFBundleIconName: AppIcon
+        CFBundleIcons:
+          CFBundlePrimaryIcon:
+            CFBundleIconFiles:
+              - Icon-60
+            CFBundleIconName: AppIcon
         CFBundleIconFiles:
           - Icon-60@2x.png
           - Icon-60@3x.png
