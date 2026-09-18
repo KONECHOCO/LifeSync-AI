@@ -7,7 +7,7 @@ options:
 settings:
   base:
     MARKETING_VERSION: "1.0"
-    CURRENT_PROJECT_VERSION: "1"
+    CURRENT_PROJECT_VERSION: "2"
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: "$(APPLE_TEAM_ID)"
 packages: {}
@@ -34,6 +34,28 @@ targets:
           - Icon-60@3x.png
           - Icon-76@2x.png
           - Icon-83.5@2x.png
+        UILaunchScreen:
+          UIColorName: LaunchBackground
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        LSRequiresIPhoneOS: true
+        NSLocationAlwaysAndWhenInUseUsageDescription: "LifeSync AI usa aggiornamenti di posizione a basso consumo per creare il diario giornaliero dei luoghi visitati, anche quando l'app non e aperta."
+        NSLocationWhenInUseUsageDescription: "LifeSync AI usa la posizione per registrare i luoghi visitati nel tuo diario personale."
+        NSMotionUsageDescription: "LifeSync AI usa movimento e passi per completare il riepilogo giornaliero della tua attivita."
+        NSUserTrackingUsageDescription: "LifeSync AI puo usare l'identificatore pubblicitario per mostrare annunci piu pertinenti agli utenti gratuiti."
+        UIBackgroundModes:
+          - location
+          - fetch
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        SKAdNetworkItems:
+          - SKAdNetworkIdentifier: 4pfyvq9l8r.skadnetwork
     entitlements:
       path: ios/LifeSyncAI/LifeSyncAI.entitlements
     settings:
