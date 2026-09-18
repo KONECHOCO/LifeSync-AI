@@ -12,3 +12,20 @@
 "export_backup" = "Exportar Registro y Copia";
 "backup_complete" = "Copia Completa";
 "backup_complete_message" = "Tu copia diaria se guardo localmente.";
+
+"pw_subtitle" = "Desbloquea tu asistente de diario completo";
+"pw_trial_badge" = "7 DÍAS DE PRUEBA GRATIS";
+"pw_f1_t" = "Resumen nocturno IA ilimitado";
+"pw_f1_s" = "Generado automáticamente cada día a las 23:00";
+"pw_f2_t" = "Seguimiento de lugares y pasos";
+"pw_f2_s" = "Visitas de CoreLocation de bajo consumo";
+"pw_f3_t" = "Archivo personal";
+"pw_f3_s" = "Almacenamiento local de los datos del resumen diario";
+"pw_f4_t" = "Sin anuncios";
+"pw_f4_s" = "Elimina los vídeos de Unity Ads con LifeSync Pro";
+"pw_cta" = "Empezar 7 días gratis";
+"pw_price_note" = "Luego 4,99 €/mes. Cancela cuando quieras desde los ajustes del Apple ID.";
+"pw_restore" = "Restaurar compras";
+"pw_error_title" = "Suscripción";
+"pw_unavailable" = "La suscripción no está disponible ahora. Inténtalo de nuevo en unos minutos.";
+"pw_ok" = "OK";

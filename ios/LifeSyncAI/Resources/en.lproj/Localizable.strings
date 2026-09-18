@@ -12,3 +12,20 @@
 "export_backup" = "Export Log & Backup";
 "backup_complete" = "Backup Complete";
 "backup_complete_message" = "Your daily backup was stored locally.";
+
+"pw_subtitle" = "Unlock your complete journal assistant";
+"pw_trial_badge" = "7-DAY FREE TRIAL";
+"pw_f1_t" = "Unlimited AI Evening Summary";
+"pw_f1_s" = "Generated automatically every day at 23:00";
+"pw_f2_t" = "Places & Steps Tracking";
+"pw_f2_s" = "Low-power CoreLocation visits";
+"pw_f3_t" = "Personal archive";
+"pw_f3_s" = "Local storage of the data used for your daily summary";
+"pw_f4_t" = "No ads";
+"pw_f4_s" = "Remove Unity Ads videos with LifeSync Pro";
+"pw_cta" = "Start 7-Day Free Trial";
+"pw_price_note" = "Then €4.99/month. Cancel anytime in your Apple ID settings.";
+"pw_restore" = "Restore Purchases";
+"pw_error_title" = "Subscription";
+"pw_unavailable" = "Subscription is not available right now. Please try again in a few minutes.";
+"pw_ok" = "OK";

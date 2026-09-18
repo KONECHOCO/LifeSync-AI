@@ -19,7 +19,7 @@ targets:
     sources:
       - path: ios/LifeSyncAI
         excludes:
-          - Resources/**
+          - Resources/Assets.xcassets/**
     info:
       path: ios/LifeSyncAI/Info.plist
       properties:

@@ -39,10 +39,12 @@ final class SubscriptionManager: ObservableObject {
             let products = try await Product.products(for: [SubscriptionManager.monthlySubscriptionID])
             self.subscriptionProduct = products.first
             self.isLoading = false
+            if products.isEmpty {
+                print("⚠️ Nessun prodotto trovato per \(SubscriptionManager.monthlySubscriptionID)")
+            }
             print("✅ Prodotto caricato da App Store: \(products.first?.displayName ?? "") - \(products.first?.displayPrice ?? "")")
         } catch {
             self.isLoading = false
-            self.errorMessage = "Impossibile caricare l'abbonamento: \(error.localizedDescription)"
             print("⚠️ Errore StoreKit: \(error.localizedDescription)")
         }
     }
@@ -50,8 +52,11 @@ final class SubscriptionManager: ObservableObject {
     /// Acquista l'abbonamento con 7 giorni di prova gratis
     @MainActor
     func purchaseMonthlySubscription() async -> Bool {
+        if subscriptionProduct == nil {
+            await fetchProducts()
+        }
         guard let product = subscriptionProduct else {
-            errorMessage = "Prodotto non disponibile."
+            errorMessage = "pw_unavailable".localized
             return false
         }
         
@@ -81,7 +86,7 @@ final class SubscriptionManager: ObservableObject {
             }
         } catch {
             isLoading = false
-            errorMessage = "Errore durante l'acquisto: \(error.localizedDescription)"
+            errorMessage = error.localizedDescription
             return false
         }
     }
@@ -96,7 +101,7 @@ final class SubscriptionManager: ObservableObject {
             isLoading = false
         } catch {
             isLoading = false
-            errorMessage = "Impossibile ripristinare gli acquisti: \(error.localizedDescription)"
+            errorMessage = error.localizedDescription
         }
     }
     

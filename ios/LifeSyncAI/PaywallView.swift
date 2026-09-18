@@ -7,6 +7,8 @@ struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject private var subManager = SubscriptionManager.shared
     @State private var isPurchasing = false
+    @State private var showError = false
+    @State private var errorText = ""
     
     var body: some View {
         ZStack {
@@ -44,7 +46,7 @@ struct PaywallView: View {
                         .fontWeight(.black)
                         .foregroundColor(.white)
                     
-                    Text("Sblocca il tuo assistente diario completo")
+                    Text("pw_subtitle".localized)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
@@ -53,7 +55,7 @@ struct PaywallView: View {
                 HStack(spacing: 8) {
                     Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
-                    Text("7 GIORNI DI PROVA GRATUITA")
+                    Text("pw_trial_badge".localized)
                         .font(.caption)
                         .fontWeight(.bold)
                         .foregroundColor(.yellow)
@@ -68,11 +70,10 @@ struct PaywallView: View {
                 
                 // Features Included List
                 VStack(alignment: .leading, spacing: 16) {
-                    FeatureRow(icon: "sparkles", color: .yellow, title: "Riepilogo Serale AI Illimitato", subtitle: "Generazione automatica ogni giorno alle 23:00")
-                    FeatureRow(icon: "location.fill", color: .cyan, title: "Tracciamento Luoghi & Passi", subtitle: "CoreLocation Visit ultra-efficiente (<0.8% batt)")
-                    FeatureRow(icon: "bubble.left.and.bubble.right.fill", color: .purple, title: "Uso app comunicazione", subtitle: "Compatibile con Screen Time quando l'autorizzazione Apple e disponibile")
-                    FeatureRow(icon: "mic.fill", color: .pink, title: "Diario Vocale Rapido", subtitle: "Trascrizione automatica ed elaborazione note vocali")
-                    FeatureRow(icon: "lock.fill", color: .green, title: "Archivio personale", subtitle: "Salvataggio locale dei dati usati per il riepilogo giornaliero")
+                    FeatureRow(icon: "sparkles", color: .yellow, title: "pw_f1_t".localized, subtitle: "pw_f1_s".localized)
+                    FeatureRow(icon: "location.fill", color: .cyan, title: "pw_f2_t".localized, subtitle: "pw_f2_s".localized)
+                    FeatureRow(icon: "lock.fill", color: .green, title: "pw_f3_t".localized, subtitle: "pw_f3_s".localized)
+                    FeatureRow(icon: "nosign", color: .pink, title: "pw_f4_t".localized, subtitle: "pw_f4_s".localized)
                 }
                 .padding()
                 .background(Color.white.opacity(0.04))
@@ -88,7 +89,7 @@ struct PaywallView: View {
                                 ProgressView()
                                     .tint(.black)
                             } else {
-                                Text("Inizia 7 Giorni Gratis")
+                                Text("pw_cta".localized)
                                     .font(.headline)
                                     .fontWeight(.bold)
                             }
@@ -102,13 +103,13 @@ struct PaywallView: View {
                     }
                     .disabled(isPurchasing || subManager.isLoading)
                     
-                    Text("Poi 4,99 €/mese. Annulla in qualsiasi momento dalle impostazioni dell'Apple ID.")
+                    Text("pw_price_note".localized)
                         .font(.caption2)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.gray)
                     
                     // Restore purchases
-                    Button("Ripristina Acquisti") {
+                    Button("pw_restore".localized) {
                         Task { await subManager.restorePurchases() }
                     }
                     .font(.caption)
@@ -119,6 +120,11 @@ struct PaywallView: View {
             }
             .padding()
         }
+        .alert("pw_error_title".localized, isPresented: $showError) {
+            Button("pw_ok".localized, role: .cancel) {}
+        } message: {
+            Text(errorText)
+        }
     }
     
     private func startTrial() {
@@ -128,6 +134,10 @@ struct PaywallView: View {
             isPurchasing = false
             if success {
                 dismiss()
+            } else if let message = subManager.errorMessage {
+                errorText = message
+                showError = true
+                subManager.errorMessage = nil
             }
         }
     }
