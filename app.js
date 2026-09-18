@@ -70,6 +70,19 @@ const i18n = {
         notifDesc: "Simula l'arrivo della notifica serale delle ore 23:00 con il riepilogo automatico.",
         btnSendNotif: "Invia Notifica Notturna",
         paywallSubText: "Prova il backup illimitato per 7 giorni, poi 4,99 €/mese.",
+        pwTitle: "LifeSync AI Pro",
+        pwSubtitle: "Sblocca il tuo assistente diario e backup senza annunci",
+        pwTrialBadge: "7 GIORNI DI PROVA GRATUITA",
+        pwFeat1Title: "Nessuna Pubblicità (No Unity Ads)",
+        pwFeat1Desc: "Elimina completamente gli spot video rewarded",
+        pwFeat2Title: "Riepilogo Serale AI Illimitato",
+        pwFeat2Desc: "Sintesi automatica di ogni giornata alle 23:00",
+        pwFeat3Title: "Tracciamento Posizioni & Passi",
+        pwFeat3Desc: "CoreLocation Visit a basso consumo (<0.8% batt/giorno)",
+        pwFeat4Title: "Archivio personale locale",
+        pwFeat4Desc: "I tuoi dati restano sul dispositivo e alimentano il riepilogo quotidiano",
+        pwCta: "Inizia i 7 Giorni Gratis",
+        pwSubtext: "Poi 4,99 €/mese. Puoi annullare in qualsiasi momento nelle impostazioni del tuo Apple ID.",
         aiSummaryText: "🌟 **Sintesi Assistente AI del 17 Settembre**\n\nOggi hai registrato un ottimo equilibrio! Hai percorso **8.420 passi**, visitato **4 luoghi**, e accumulato **48 minuti di messaggistica su WhatsApp** e **3 chiamate (22m)**.\n\nHai completato 7h 20m di sonno profondo. Tutti i dati sono cifrati nel tuo backup giornaliero!",
         timelineItems: [
             { time: "08:15", title: "Risveglio & Corsa Mattutina", desc: "Parco Sempione • 4.2 km percorsi", icon: "fa-person-running", bg: "bg-cyan-light" },
@@ -131,6 +144,19 @@ const i18n = {
         notifTitle: "Scheduled Notification Test",
         notifDesc: "Simulate the 11:00 PM nightly notification with the automated summary.",
         btnSendNotif: "Send Nightly Notification",
+        pwTitle: "LifeSync AI Pro",
+        pwSubtitle: "Unlock your daily assistant and ad-free backup",
+        pwTrialBadge: "7-DAY FREE TRIAL",
+        pwFeat1Title: "No Ads (No Unity Ads)",
+        pwFeat1Desc: "Completely removes rewarded video spots",
+        pwFeat2Title: "Unlimited Evening AI Summary",
+        pwFeat2Desc: "Automatic synthesis every day at 11:00 PM",
+        pwFeat3Title: "Location & Steps Tracking",
+        pwFeat3Desc: "Low-power CoreLocation Visit (<0.8% battery/day)",
+        pwFeat4Title: "Private Local Archive",
+        pwFeat4Desc: "Your data stays on your device and powers your daily summary",
+        pwCta: "Start 7 Days Free",
+        pwSubtext: "Then €4.99/month. Cancel anytime in your Apple ID settings.",
         paywallSubText: "Try unlimited backup for 7 days, then €4.99/month.",
         aiSummaryText: "AI Assistant Daily Summary - Sept 17\n\nGreat daily balance today! You walked **8,420 steps**, visited **4 places**, and recorded a balanced routine.\n\nYou achieved 7h 20m of rest. Your summary is generated from data stored on this device.",
         timelineItems: [
@@ -194,6 +220,19 @@ const i18n = {
         notifDesc: "Simula la llegada de la notificación nocturna de las 23:00.",
         btnSendNotif: "Enviar Notificación Nocturna",
         paywallSubText: "Prueba copia ilimitada 7 días gratis, luego 4,99 €/mes.",
+        pwTitle: "LifeSync AI Pro",
+        pwSubtitle: "Desbloquea tu asistente diario y copia sin anuncios",
+        pwTrialBadge: "7 DÍAS DE PRUEBA GRATIS",
+        pwFeat1Title: "Sin Publicidad (No Unity Ads)",
+        pwFeat1Desc: "Elimina por completo los anuncios de video rewarded",
+        pwFeat2Title: "Resumen Nocturno IA Ilimitado",
+        pwFeat2Desc: "Síntesis automática cada día a las 23:00",
+        pwFeat3Title: "Seguimiento de Ubicación y Pasos",
+        pwFeat3Desc: "CoreLocation Visit de bajo consumo (<0.8% batería/día)",
+        pwFeat4Title: "Archivo personal local",
+        pwFeat4Desc: "Tus datos permanecen en tu dispositivo y alimentan tu resumen diario",
+        pwCta: "Comenzar 7 Días Gratis",
+        pwSubtext: "Luego 4,99 €/mes. Puedes cancelar en cualquier momento en los ajustes de tu Apple ID.",
         aiSummaryText: "🌟 **Resumen del Asistente IA - 17 Sept**\n\n¡Excelente equilibrio diario! Registraste **8.420 pasos**, visitaste **4 lugares**, usaste **48m en WhatsApp** y **3 llamadas (22m)**.\n\nDurmiste 7h 20m. ¡Todos los datos están guardados en tu copia cifrada!",
         timelineItems: [
             { time: "08:15", title: "Despertar y Carrera Matutina", desc: "Parque Central • 4.2 km recorridos", icon: "fa-person-running", bg: "bg-cyan-light" },
@@ -256,6 +295,19 @@ const i18n = {
         notifDesc: "Simulez la réception de la notification de 23h00.",
         btnSendNotif: "Envoyer Notification",
         paywallSubText: "Essai gratuit 7 jours, puis 4,99 €/mois.",
+        pwTitle: "LifeSync AI Pro",
+        pwSubtitle: "Débloquez votre assistant quotidien et la sauvegarde sans publicité",
+        pwTrialBadge: "7 JOURS D'ESSAI GRATUIT",
+        pwFeat1Title: "Sans Publicité (No Unity Ads)",
+        pwFeat1Desc: "Supprime complètement les spots vidéo rewarded",
+        pwFeat2Title: "Résumé IA du Soir Illimité",
+        pwFeat2Desc: "Synthèse automatique chaque jour à 23h00",
+        pwFeat3Title: "Suivi de Position & Pas",
+        pwFeat3Desc: "CoreLocation Visit à faible consommation (<0.8% batterie/jour)",
+        pwFeat4Title: "Archive personnelle locale",
+        pwFeat4Desc: "Vos données restent sur votre appareil et alimentent votre résumé quotidien",
+        pwCta: "Commencer les 7 Jours Gratuits",
+        pwSubtext: "Puis 4,99 €/mois. Vous pouvez annuler à tout moment dans les réglages de votre Apple ID.",
         aiSummaryText: "🌟 **Résumé de l'Assistant IA - 17 Sept**\n\nExcellente journée ! Vous avez accompli **8 420 pas**, visité **4 lieux**, passé **48m sur WhatsApp** et **3 appels (22m)**.\n\nSommeil réparateur de 7h 20m. Toutes vos données sont sauvegardées en toute sécurité !",
         timelineItems: [
             { time: "08:15", title: "Réveil & Course Matinale", desc: "Parc Sempione • 4.2 km parcourus", icon: "fa-person-running", bg: "bg-cyan-light" },
@@ -493,6 +545,20 @@ function changeLanguage(lang) {
     document.getElementById('btn-rec-audio').textContent = t.btnRecAudio;
     document.getElementById('txt-audio-desc').textContent = t.audioDesc;
     document.getElementById('txt-paywall-sub').textContent = t.paywallSubText;
+
+    document.getElementById('txt-pw-title').textContent = t.pwTitle;
+    document.getElementById('txt-pw-subtitle').textContent = t.pwSubtitle;
+    document.getElementById('txt-pw-trial-badge').textContent = t.pwTrialBadge;
+    document.getElementById('txt-pw-feat1-title').textContent = t.pwFeat1Title;
+    document.getElementById('txt-pw-feat1-desc').textContent = t.pwFeat1Desc;
+    document.getElementById('txt-pw-feat2-title').textContent = t.pwFeat2Title;
+    document.getElementById('txt-pw-feat2-desc').textContent = t.pwFeat2Desc;
+    document.getElementById('txt-pw-feat3-title').textContent = t.pwFeat3Title;
+    document.getElementById('txt-pw-feat3-desc').textContent = t.pwFeat3Desc;
+    document.getElementById('txt-pw-feat4-title').textContent = t.pwFeat4Title;
+    document.getElementById('txt-pw-feat4-desc').textContent = t.pwFeat4Desc;
+    document.getElementById('txt-pw-cta').textContent = t.pwCta;
+    document.getElementById('txt-pw-subtext').textContent = t.pwSubtext;
     
     const audioList = document.getElementById('audio-notes-list');
     if (audioList) {
@@ -526,8 +592,6 @@ function changeLanguage(lang) {
     
     document.getElementById('txt-ctrl-title').textContent = t.ctrlTitle;
     document.getElementById('txt-ctrl-subtitle').textContent = t.ctrlSubtitle;
-    document.getElementById('txt-privacy-faq-title').textContent = t.privacyFaqTitle;
-    document.getElementById('txt-privacy-faq-desc').innerHTML = t.privacyFaqDesc;
     document.getElementById('txt-sim-events-title').textContent = t.simEventsTitle;
     document.getElementById('btn-sim-office').textContent = t.btnSimOffice;
     document.getElementById('btn-sim-gym').textContent = t.btnSimGym;
