@@ -40,11 +40,15 @@ Permissions used:
 
 ## Screenshot Files
 
-- `app_store_screenshots/01_home_it_6_7.png` - iPhone 6.7", Italian home/activity dashboard, 1290x2796
-- `app_store_screenshots/02_summary_en_6_7.png` - iPhone 6.7", English summary flow, 1290x2796
-- `app_store_screenshots/03_paywall_it_6_7.png` - iPhone 6.7", Italian paywall, 1290x2796
-- `app_store_screenshots/04_monetization_es_5_5.png` - iPhone 5.5", Spanish dashboard, 1242x2208
-- `app_store_screenshots/05_privacy_fr_ipad.png` - iPad, French privacy/monetization panel, 2048x2732
+Sized to Apple's current mandatory buckets (6.9" iPhone, 13" iPad); App Store Connect
+scales these down to populate the smaller/older device buckets automatically.
+
+- `app_store_screenshots/iphone_01_home_it.png` - iPhone 6.9", Italian home/activity dashboard, 1320x2868
+- `app_store_screenshots/iphone_02_summary_en.png` - iPhone 6.9", English AI summary, 1320x2868
+- `app_store_screenshots/iphone_03_paywall_es.png` - iPhone 6.9", Spanish paywall, 1320x2868
+- `app_store_screenshots/iphone_04_privacy_fr.png` - iPhone 6.9", French communications/privacy panel, 1320x2868
+- `app_store_screenshots/ipad_01_home_it.png` - iPad 13", Italian home/activity dashboard, 2064x2752
+- `app_store_screenshots/ipad_02_paywall_en.png` - iPad 13", English paywall, 2064x2752
 
 ## Italian
 
