@@ -19,9 +19,10 @@ targets:
     sources:
       - path: ios/LifeSyncAI
         excludes:
+          - Assets.xcassets/**
           - Resources/**
     resources:
-      - path: ios/LifeSyncAI/Resources/Assets.xcassets
+      - path: ios/LifeSyncAI/Assets.xcassets
       - path: ios/LifeSyncAI/Icon-60@2x.png
       - path: ios/LifeSyncAI/Icon-60@3x.png
       - path: ios/LifeSyncAI/Icon-76@2x.png
