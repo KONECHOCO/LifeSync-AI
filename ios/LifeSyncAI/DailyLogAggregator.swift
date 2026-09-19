@@ -31,6 +31,8 @@ final class DailyLogAggregator {
     private var currentStepsCount: Int = 0
     
     private init() {}
+
+    var placesSnapshot: [String] { visitedPlaces }
     
     func recordLocationEvent(latitude: Double, longitude: Double, date: Date) {
         let formatter = DateFormatter()

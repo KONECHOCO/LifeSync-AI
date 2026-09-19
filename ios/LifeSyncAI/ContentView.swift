@@ -2,26 +2,33 @@ import SwiftUI
 import SwiftData
 import UIKit
 
+/// Schermata "Oggi": passi, luoghi, riepilogo giornaliero ed export del backup.
 struct ContentView: View {
+    @Environment(\.modelContext) private var modelContext
+    @Environment(\.scenePhase) private var scenePhase
+
     @StateObject private var locationManager = LocationManager()
     @StateObject private var motionTracker = MotionTracker()
     @StateObject private var subscriptionManager = SubscriptionManager.shared
     @StateObject private var unityAdsManager = UnityAdsManager.shared
-    
-    @State private var aiSummaryText: String = "Il tuo riepilogo automatico delle ore 23:00 comparirà qui."
+
+    @State private var aiSummaryText: String = "ai_placeholder".localized
     @State private var isGenerating: Bool = false
-    @State private var showingBackupAlert: Bool = false
     @State private var showingPaywall: Bool = false
-    
+    @State private var placesCount: Int = 0
+    @State private var exportURL: URL?
+    @State private var showingShare: Bool = false
+    @State private var showingExportError: Bool = false
+
     var body: some View {
         NavigationStack {
             ZStack {
                 Color(red: 9/255, green: 13/255, blue: 22/255)
                     .ignoresSafeArea()
-                
+
                 ScrollView {
                     VStack(spacing: 20) {
-                        
+
                         // Header Card
                         HStack {
                             VStack(alignment: .leading, spacing: 4) {
@@ -35,7 +42,7 @@ struct ContentView: View {
                                     .foregroundColor(.white)
                             }
                             Spacer()
-                            
+
                             HStack(spacing: 6) {
                                 Circle()
                                     .fill(Color.green)
@@ -53,7 +60,7 @@ struct ContentView: View {
                         .padding()
                         .background(Color.white.opacity(0.05))
                         .cornerRadius(20)
-                        
+
                         // Metrics Grid
                         HStack(spacing: 12) {
                             MetricCardView(
@@ -62,15 +69,15 @@ struct ContentView: View {
                                 icon: "shoeprints.fill",
                                 color: .cyan
                             )
-                            
+
                             MetricCardView(
                                 title: "visited_places".localized,
-                                value: "\(locationManager.visitsCountToday)",
+                                value: "\(max(placesCount, locationManager.visitsCountToday))",
                                 icon: "mappin.circle.fill",
                                 color: .purple
                             )
                         }
-                        
+
                         // Activity Status
                         HStack {
                             Label("detected_activity".localized, systemImage: "figure.walk")
@@ -85,16 +92,16 @@ struct ContentView: View {
                         .padding()
                         .background(Color.white.opacity(0.04))
                         .cornerRadius(16)
-                        
+
                         // AI Summary Section
                         VStack(alignment: .leading, spacing: 14) {
                             HStack {
                                 Label("ai_summary".localized, systemImage: "sparkles")
                                     .font(.headline)
                                     .foregroundColor(.yellow)
-                                
+
                                 Spacer()
-                                
+
                                 Button(action: requestAISummaryAccess) {
                                     HStack(spacing: 5) {
                                         if isGenerating {
@@ -115,11 +122,12 @@ struct ContentView: View {
                                 }
                                 .disabled(isGenerating)
                             }
-                            
+
                             Text(aiSummaryText)
                                 .font(.subheadline)
                                 .lineSpacing(5)
                                 .foregroundColor(.white.opacity(0.9))
+                                .frame(maxWidth: .infinity, alignment: .leading)
                                 .padding()
                                 .background(Color.black.opacity(0.4))
                                 .cornerRadius(12)
@@ -131,7 +139,7 @@ struct ContentView: View {
                                 .stroke(Color.yellow.opacity(0.3), lineWidth: 1)
                         )
                         .cornerRadius(20)
-                        
+
                         // Backup Status Card
                         VStack(alignment: .leading, spacing: 10) {
                             HStack {
@@ -140,13 +148,13 @@ struct ContentView: View {
                                     .fontWeight(.bold)
                                     .foregroundColor(.green)
                             }
-                            Text("I dati dei sensori di movimento e le posizioni sono memorizzati sul dispositivo per creare il tuo riepilogo giornaliero.")
+                            Text("backup_desc".localized)
                                 .font(.caption)
                                 .foregroundColor(.gray)
-                            
+
                             Button(action: exportBackup) {
                                 HStack {
-                                    Image(systemName: "arrow.down.doc")
+                                    Image(systemName: "square.and.arrow.up")
                                     Text("export_backup".localized)
                                 }
                                 .font(.caption)
@@ -172,14 +180,32 @@ struct ContentView: View {
                 locationManager.requestPermissionsAndStart()
                 motionTracker.startTracking()
                 AISummarizerService.shared.scheduleDailyNightlyNotification()
+                loadToday()
+                backfillHistory()
+            }
+            .onChange(of: motionTracker.stepsToday) { _, _ in
+                persistToday()
+            }
+            .onChange(of: locationManager.visitsCountToday) { _, _ in
+                persistToday()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .background {
+                    persistToday()
+                }
             }
             .sheet(isPresented: $showingPaywall) {
                 PaywallView()
             }
-            .alert("backup_complete".localized, isPresented: $showingBackupAlert) {
-                Button("OK", role: .cancel) { }
+            .sheet(isPresented: $showingShare) {
+                if let url = exportURL {
+                    ShareSheet(items: [url])
+                }
+            }
+            .alert("pw_error_title".localized, isPresented: $showingExportError) {
+                Button("pw_ok".localized, role: .cancel) { }
             } message: {
-                Text("backup_complete_message".localized)
+                Text("export_error".localized)
             }
         }
     }
@@ -194,18 +220,52 @@ struct ContentView: View {
         formatter.timeStyle = .none
         return "\("today_label".localized), \(formatter.string(from: Date()))"
     }
-    
+
+    // MARK: - Persistenza
+
+    private func loadToday() {
+        let key = DailyLogStore.key(for: Date())
+        if let log = DailyLogStore.fetch(key, in: modelContext) {
+            placesCount = log.placesVisitedCount
+            if let summary = log.aiGeneratedSummary, !summary.isEmpty {
+                aiSummaryText = summary
+            }
+        }
+    }
+
+    private func persistToday() {
+        let key = DailyLogStore.key(for: Date())
+        let log = DailyLogStore.upsert(
+            dateString: key,
+            steps: motionTracker.stepsToday,
+            places: DailyLogAggregator.shared.placesSnapshot,
+            summary: nil,
+            in: modelContext
+        )
+        placesCount = log.placesVisitedCount
+    }
+
+    private func backfillHistory() {
+        motionTracker.backfillPastDays(6) { results in
+            for (dayKey, steps) in results where steps > 0 {
+                DailyLogStore.upsert(dateString: dayKey, steps: steps, places: nil, summary: nil, in: modelContext)
+            }
+        }
+    }
+
+    // MARK: - Azioni
+
     private func requestAISummaryAccess() {
         guard !subscriptionManager.isSubscribed else {
             generateAISummary()
             return
         }
-        
+
         guard let presenter = UIViewController.topMostViewController() else {
             showingPaywall = true
             return
         }
-        
+
         unityAdsManager.showRewardedAd(from: presenter) { didEarnReward in
             DispatchQueue.main.async {
                 if didEarnReward {
@@ -216,30 +276,34 @@ struct ContentView: View {
             }
         }
     }
-    
+
     private func exportBackup() {
-        if !subscriptionManager.isSubscribed, let presenter = UIViewController.topMostViewController() {
-            unityAdsManager.showInterstitialAd(from: presenter)
+        persistToday()
+        if let url = DailyLogStore.exportJSON(in: modelContext) {
+            exportURL = url
+            showingShare = true
+        } else {
+            showingExportError = true
         }
-        showingBackupAlert = true
     }
-    
+
     private func generateAISummary() {
         isGenerating = true
-        let payload = DailyLogAggregator.shared.buildCompactJSONPayload()
-        
-        AISummarizerService.shared.fetchDailySummary(jsonPayload: payload) { result in
-            DispatchQueue.main.async {
-                isGenerating = false
-                if case .success(let text) = result {
-                    self.aiSummaryText = text
-                }
-            }
-        }
+        persistToday()
+
+        let key = DailyLogStore.key(for: Date())
+        let steps = motionTracker.stepsToday
+        let places = max(placesCount, locationManager.visitsCountToday)
+        let average = DailyLogStore.averageSteps(excluding: key, in: modelContext)
+        let text = AISummarizerService.shared.makeDailySummary(steps: steps, places: places, averageSteps: average)
+
+        aiSummaryText = text
+        DailyLogStore.upsert(dateString: key, steps: nil, places: nil, summary: text, in: modelContext)
+        isGenerating = false
     }
 }
 
-private extension UIViewController {
+extension UIViewController {
     static func topMostViewController(
         base: UIViewController? = UIApplication.shared.connectedScenes
             .compactMap { $0 as? UIWindowScene }
@@ -260,13 +324,24 @@ private extension UIViewController {
     }
 }
 
+/// Foglio di condivisione di sistema per il file di backup.
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
 // Subview per le tessere delle metriche
 struct MetricCardView: View {
     let title: String
     let value: String
     let icon: String
     let color: Color
-    
+
     var body: some View {
         VStack(spacing: 8) {
             Image(systemName: icon)

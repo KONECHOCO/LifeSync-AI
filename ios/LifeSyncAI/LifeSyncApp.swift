@@ -5,7 +5,7 @@ import SwiftData
 struct LifeSyncApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            RootTabView()
         }
         .modelContainer(for: DailyBackupLog.self)
     }

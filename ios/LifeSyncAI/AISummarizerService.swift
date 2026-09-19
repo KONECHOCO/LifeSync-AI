@@ -14,8 +14,8 @@ final class AISummarizerService {
             guard granted, error == nil else { return }
             
             let content = UNMutableNotificationContent()
-            content.title = "LifeSync AI - Riepilogo della Giornata"
-            content.body = "Il tuo assistente ha sintetizzato i tuoi movimenti di oggi e creato il backup."
+            content.title = "notif_title".localized
+            content.body = "notif_body".localized
             content.sound = .default
             
             var dateComponents = DateComponents()
@@ -33,21 +33,27 @@ final class AISummarizerService {
         }
     }
     
-    /// Richiede la sintesi AI del payload della giornata
-    func fetchDailySummary(jsonPayload: String, completion: @escaping (Result<String, Error>) -> Void) {
-        // Simulazione o chiamata HTTPS sicura all'endpoint LLM / Apple Foundation Models
-        DispatchQueue.global().asyncAfter(deadline: .now() + 1.2) {
-            let summary = """
-            Riepilogo Assistente LifeSync AI
-            
-            Oggi hai mantenuto un eccellente livello di attività! 
-            - Passi totali percorsi: Registrati con successo
-            - Spostamenti e luoghi visitati: Monitorati tramite CoreLocation Visit API a basso consumo.
-            - Backup di sicurezza: Salvato in archivio locale.
-            
-            Buon riposo per stasera!
-            """
-            completion(.success(summary))
+    /// Riepilogo generato in locale sui dati reali della giornata (nessun dato lascia il dispositivo).
+    func makeDailySummary(steps: Int, places: Int, averageSteps: Int?) -> String {
+        var lines: [String] = [
+            String(format: "sum_steps_line".localized, steps),
+            String(format: "sum_places_line".localized, places)
+        ]
+
+        if let average = averageSteps, average > 0 {
+            let diff = Int((Double(steps - average) / Double(average)) * 100.0)
+            if diff >= 5 {
+                lines.append(String(format: "sum_above".localized, diff))
+            } else if diff <= -5 {
+                lines.append(String(format: "sum_below".localized, abs(diff)))
+            } else {
+                lines.append("sum_same".localized)
+            }
+        } else {
+            lines.append("sum_first".localized)
         }
+
+        lines.append(steps >= 8000 ? "sum_close_active".localized : "sum_close_light".localized)
+        return "sum_header".localized + "\n\n" + lines.joined(separator: "\n")
     }
 }
