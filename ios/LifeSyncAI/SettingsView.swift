@@ -35,6 +35,15 @@ struct SettingsView: View {
                     }
                 }
 
+                Section("set_auto_title".localized) {
+                    Text("set_auto_body".localized)
+                        .font(.footnote)
+                        .foregroundColor(.gray)
+                    if let shortcutsURL = URL(string: "shortcuts://") {
+                        Link("set_auto_open".localized, destination: shortcutsURL)
+                    }
+                }
+
                 Section("set_data".localized) {
                     Button("set_delete".localized, role: .destructive) {
                         showingDeleteConfirm = true

@@ -114,3 +114,10 @@
 "set_version" = "Versione";
 "sum_active_line" = "Movimento attivo: %d min";
 "sum_notes_line" = "Note vocali: %d";
+
+"tl_call_in" = "Chiamata ricevuta";
+"tl_call_out" = "Chiamata effettuata";
+"tl_call_missed" = "Chiamata senza risposta";
+"set_auto_title" = "Messaggi e automazioni";
+"set_auto_body" = "iOS non permette alle app di leggere o rilevare i messaggi. Puoi però registrarli tu con Comandi: apri Comandi → Automazione → Nuova automazione → Messaggio, poi scegli l'azione \"Registra evento in LifeSync\". Le chiamate invece vengono rilevate automaticamente (solo orario e durata, senza numeri né contatti) mentre l'app è attiva.";
+"set_auto_open" = "Apri Comandi";

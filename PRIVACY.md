@@ -9,7 +9,8 @@ LifeSync AI is a personal daily journal. This policy explains what the app does 
 **Data stored on your device only**
 - Steps, walking/running/driving/cycling activity and time spent still (from Apple's Motion & Fitness sensors).
 - Places you visit (from Apple's location visit monitoring), with an approximate address obtained through Apple's reverse-geocoding service.
-- Events you add manually and voice notes.
+- Calls: start/end time, direction (incoming, outgoing, missed) and duration, detected through Apple's CallKit. Phone numbers and contacts are never accessed.
+- Events you add manually, events added by your own Shortcuts automations, and voice notes.
 - Daily summaries, which are generated on your device.
 
 This data is kept in the app's local database on your device. We do not run any server and we do not receive, sell or share it. You can export it as a file, or delete all of it at any time from **Settings → Delete all my data**.
@@ -33,7 +34,8 @@ LifeSync AI è un diario giornaliero personale. Questa informativa spiega cosa f
 **Dati conservati solo sul tuo dispositivo**
 - Passi, attività (camminata, corsa, veicolo, bicicletta) e tempo fermo, dai sensori Movimento e Fitness di Apple.
 - Luoghi visitati (monitoraggio delle visite di Apple), con un indirizzo approssimativo ottenuto tramite il servizio di geocodifica inversa di Apple.
-- Eventi aggiunti manualmente e note vocali.
+- Chiamate: orario di inizio/fine, direzione (ricevuta, effettuata, senza risposta) e durata, rilevati tramite CallKit di Apple. Numeri e contatti non vengono mai letti.
+- Eventi aggiunti manualmente, eventi aggiunti dalle tue automazioni di Comandi e note vocali.
 - Riepiloghi giornalieri, generati sul dispositivo.
 
 I dati restano nel database locale dell'app sul tuo dispositivo. Non gestiamo alcun server e non li riceviamo, vendiamo né condividiamo. Puoi esportarli in un file o cancellarli quando vuoi da **Impostazioni → Elimina tutti i miei dati**.

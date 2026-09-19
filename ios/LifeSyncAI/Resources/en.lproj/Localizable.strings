@@ -114,3 +114,10 @@
 "set_version" = "Version";
 "sum_active_line" = "Active movement: %d min";
 "sum_notes_line" = "Voice notes: %d";
+
+"tl_call_in" = "Incoming call";
+"tl_call_out" = "Outgoing call";
+"tl_call_missed" = "Missed call";
+"set_auto_title" = "Messages & automations";
+"set_auto_body" = "iOS does not allow apps to read or detect messages. You can log them yourself with Shortcuts: open Shortcuts → Automation → New Automation → Message, then choose the action \"Log event in LifeSync\". Calls are detected automatically (time and duration only, no numbers or contacts) while the app is active.";
+"set_auto_open" = "Open Shortcuts";

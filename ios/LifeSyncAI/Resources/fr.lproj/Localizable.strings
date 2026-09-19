@@ -114,3 +114,10 @@
 "set_version" = "Version";
 "sum_active_line" = "Mouvement actif : %d min";
 "sum_notes_line" = "Notes vocales : %d";
+
+"tl_call_in" = "Appel reçu";
+"tl_call_out" = "Appel émis";
+"tl_call_missed" = "Appel manqué";
+"set_auto_title" = "Messages et automatisations";
+"set_auto_body" = "iOS ne permet pas aux apps de lire ni de détecter les messages. Vous pouvez les enregistrer vous-même avec Raccourcis : ouvrez Raccourcis → Automatisation → Nouvelle automatisation → Message, puis choisissez l'action « Enregistrer un événement dans LifeSync ». Les appels sont détectés automatiquement (heure et durée uniquement, sans numéros ni contacts) tant que l'app est active.";
+"set_auto_open" = "Ouvrir Raccourcis";

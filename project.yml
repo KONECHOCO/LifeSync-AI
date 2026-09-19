@@ -88,4 +88,6 @@ targets:
       - sdk: UserNotifications.framework
       - sdk: AppTrackingTransparency.framework
       - sdk: Speech.framework
+      - sdk: CallKit.framework
+      - sdk: AppIntents.framework
       - sdk: AVFoundation.framework

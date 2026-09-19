@@ -119,6 +119,8 @@ private struct TimelineRow: View {
         case "visit": return "mappin.circle.fill"
         case "activity": return "figure.walk"
         case "voice": return "mic.fill"
+        case "call": return "phone.fill"
+        case "message": return "message.fill"
         default: return "square.and.pencil"
         }
     }
@@ -128,6 +130,8 @@ private struct TimelineRow: View {
         case "visit": return .purple
         case "activity": return .cyan
         case "voice": return .pink
+        case "call": return .green
+        case "message": return .blue
         default: return .orange
         }
     }
