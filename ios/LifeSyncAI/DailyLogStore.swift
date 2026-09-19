@@ -72,12 +72,24 @@ enum DailyLogStore {
         return previous.map(\.stepsCount).reduce(0, +) / previous.count
     }
 
-    /// Scrive tutti i log in un file JSON temporaneo da condividere.
-    static func exportJSON(in context: ModelContext) -> URL? {
-        let descriptor = FetchDescriptor<DailyBackupLog>(sortBy: [SortDescriptor(\.dateString)])
-        guard let logs = try? context.fetch(descriptor) else { return nil }
+    static func notesCount(for dateKey: String, in context: ModelContext) -> Int {
+        let descriptor = FetchDescriptor<VoiceNote>(
+            predicate: #Predicate<VoiceNote> { $0.dayKey == dateKey }
+        )
+        return (try? context.fetchCount(descriptor)) ?? 0
+    }
 
-        let items: [[String: Any]] = logs.map { log in
+    /// Scrive tutti i dati in un file JSON temporaneo da condividere.
+    static func exportJSON(in context: ModelContext) -> URL? {
+        let dayDescriptor = FetchDescriptor<DailyBackupLog>(sortBy: [SortDescriptor(\.dateString)])
+        let eventDescriptor = FetchDescriptor<TimelineEvent>(sortBy: [SortDescriptor(\.date)])
+        let noteDescriptor = FetchDescriptor<VoiceNote>(sortBy: [SortDescriptor(\.date)])
+        guard let logs = try? context.fetch(dayDescriptor) else { return nil }
+        let events = (try? context.fetch(eventDescriptor)) ?? []
+        let notes = (try? context.fetch(noteDescriptor)) ?? []
+        let iso = ISO8601DateFormatter()
+
+        let days: [[String: Any]] = logs.map { log in
             [
                 "date": log.dateString,
                 "steps": log.stepsCount,
@@ -85,7 +97,24 @@ enum DailyLogStore {
                 "summary": log.aiGeneratedSummary ?? ""
             ]
         }
-        guard let data = try? JSONSerialization.data(withJSONObject: items, options: [.prettyPrinted, .sortedKeys]) else {
+        let timeline: [[String: Any]] = events.map { event in
+            [
+                "time": iso.string(from: event.date),
+                "type": event.kind,
+                "title": event.title,
+                "detail": event.detail
+            ]
+        }
+        let voiceNotes: [[String: Any]] = notes.map { note in
+            [
+                "time": iso.string(from: note.date),
+                "seconds": Int(note.duration),
+                "text": note.text
+            ]
+        }
+        let root: [String: Any] = ["days": days, "timeline": timeline, "voice_notes": voiceNotes]
+
+        guard let data = try? JSONSerialization.data(withJSONObject: root, options: [.prettyPrinted, .sortedKeys]) else {
             return nil
         }
         let url = FileManager.default.temporaryDirectory

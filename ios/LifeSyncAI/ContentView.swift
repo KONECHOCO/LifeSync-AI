@@ -7,7 +7,7 @@ struct ContentView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.scenePhase) private var scenePhase
 
-    @StateObject private var locationManager = LocationManager()
+    @StateObject private var locationManager = LocationManager.shared
     @StateObject private var motionTracker = MotionTracker()
     @StateObject private var subscriptionManager = SubscriptionManager.shared
     @StateObject private var unityAdsManager = UnityAdsManager.shared
@@ -19,6 +19,9 @@ struct ContentView: View {
     @State private var exportURL: URL?
     @State private var showingShare: Bool = false
     @State private var showingExportError: Bool = false
+    @State private var restSeconds: Int = 0
+    @State private var activeSeconds: Int = 0
+    @State private var lastPersist: Date = .distantPast
 
     var body: some View {
         NavigationStack {
@@ -76,6 +79,13 @@ struct ContentView: View {
                                 icon: "mappin.circle.fill",
                                 color: .purple
                             )
+
+                            MetricCardView(
+                                title: "rest_label".localized,
+                                value: formatDuration(restSeconds),
+                                icon: "bed.double.fill",
+                                color: .orange
+                            )
                         }
 
                         // Activity Status
@@ -92,6 +102,10 @@ struct ContentView: View {
                         .padding()
                         .background(Color.white.opacity(0.04))
                         .cornerRadius(16)
+
+                        // Timeline & note vocali
+                        TimelineSection(dayKey: DailyLogStore.key(for: Date()))
+                        VoiceNoteSection(dayKey: DailyLogStore.key(for: Date()))
 
                         // AI Summary Section
                         VStack(alignment: .leading, spacing: 14) {
@@ -179,9 +193,14 @@ struct ContentView: View {
             .onAppear {
                 locationManager.requestPermissionsAndStart()
                 motionTracker.startTracking()
-                AISummarizerService.shared.scheduleDailyNightlyNotification()
+                AISummarizerService.shared.scheduleFromSettings()
                 loadToday()
                 backfillHistory()
+                refreshActivity()
+            }
+            .refreshable {
+                refreshActivity()
+                persistToday(force: true)
             }
             .onChange(of: motionTracker.stepsToday) { _, _ in
                 persistToday()
@@ -191,7 +210,9 @@ struct ContentView: View {
             }
             .onChange(of: scenePhase) { _, newPhase in
                 if newPhase == .background {
-                    persistToday()
+                    persistToday(force: true)
+                } else if newPhase == .active {
+                    refreshActivity()
                 }
             }
             .sheet(isPresented: $showingPaywall) {
@@ -233,7 +254,9 @@ struct ContentView: View {
         }
     }
 
-    private func persistToday() {
+    private func persistToday(force: Bool = false) {
+        if !force && Date().timeIntervalSince(lastPersist) < 15 { return }
+        lastPersist = Date()
         let key = DailyLogStore.key(for: Date())
         let log = DailyLogStore.upsert(
             dateString: key,
@@ -251,6 +274,40 @@ struct ContentView: View {
                 DailyLogStore.upsert(dateString: dayKey, steps: steps, places: nil, summary: nil, in: modelContext)
             }
         }
+    }
+
+    private func refreshActivity() {
+        motionTracker.loadTodaySegments { segments in
+            var rest = 0
+            var active = 0
+            for segment in segments {
+                let seconds = Int(segment.duration)
+                if segment.category == "still" {
+                    rest += seconds
+                } else {
+                    active += seconds
+                    if seconds >= 300 {
+                        let start = segment.start
+                        TimelineStore.add(
+                            id: "act-\(segment.category)-\(Int(start.timeIntervalSince1970))",
+                            date: start,
+                            kind: "activity",
+                            title: "act_\(segment.category)".localized,
+                            detail: String(format: "tl_duration_min".localized, seconds / 60),
+                            in: modelContext
+                        )
+                    }
+                }
+            }
+            restSeconds = rest
+            activeSeconds = active
+        }
+    }
+
+    private func formatDuration(_ seconds: Int) -> String {
+        let hours = seconds / 3600
+        let minutes = (seconds % 3600) / 60
+        return hours > 0 ? "\(hours)h \(minutes)m" : "\(minutes)m"
     }
 
     // MARK: - Azioni
@@ -278,7 +335,7 @@ struct ContentView: View {
     }
 
     private func exportBackup() {
-        persistToday()
+        persistToday(force: true)
         if let url = DailyLogStore.exportJSON(in: modelContext) {
             exportURL = url
             showingShare = true
@@ -289,13 +346,20 @@ struct ContentView: View {
 
     private func generateAISummary() {
         isGenerating = true
-        persistToday()
+        persistToday(force: true)
 
         let key = DailyLogStore.key(for: Date())
         let steps = motionTracker.stepsToday
         let places = max(placesCount, locationManager.visitsCountToday)
         let average = DailyLogStore.averageSteps(excluding: key, in: modelContext)
-        let text = AISummarizerService.shared.makeDailySummary(steps: steps, places: places, averageSteps: average)
+        let notesCount = DailyLogStore.notesCount(for: key, in: modelContext)
+        let text = AISummarizerService.shared.makeDailySummary(
+            steps: steps,
+            places: places,
+            averageSteps: average,
+            activeMinutes: activeSeconds / 60,
+            notes: notesCount
+        )
 
         aiSummaryText = text
         DailyLogStore.upsert(dateString: key, steps: nil, places: nil, summary: text, in: modelContext)
@@ -351,6 +415,8 @@ struct MetricCardView: View {
                 .font(.title3)
                 .fontWeight(.bold)
                 .foregroundColor(.white)
+                .lineLimit(1)
+                .minimumScaleFactor(0.6)
             Text(title)
                 .font(.caption2)
                 .foregroundColor(.gray)

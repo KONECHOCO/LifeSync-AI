@@ -108,6 +108,9 @@ struct HistoryDetailView: View {
                     .background(Color.white.opacity(0.05))
                     .cornerRadius(16)
 
+                    TimelineSection(dayKey: log.dateString, readOnly: true)
+                    VoiceNoteSection(dayKey: log.dateString, readOnly: true)
+
                     VStack(alignment: .leading, spacing: 8) {
                         Label("detail_places".localized, systemImage: "mappin.and.ellipse")
                             .font(.headline)

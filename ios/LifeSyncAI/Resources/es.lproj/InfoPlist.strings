@@ -1,0 +1,6 @@
+"NSLocationAlwaysAndWhenInUseUsageDescription" = "LifeSync AI usa actualizaciones de ubicación de bajo consumo para crear tu diario diario de lugares visitados, incluso con la app cerrada.";
+"NSLocationWhenInUseUsageDescription" = "LifeSync AI usa tu ubicación para registrar los lugares visitados en tu diario personal.";
+"NSMotionUsageDescription" = "LifeSync AI usa datos de movimiento y pasos para completar el resumen diario de tu actividad.";
+"NSUserTrackingUsageDescription" = "LifeSync AI puede usar el identificador de publicidad para mostrar anuncios más relevantes a los usuarios gratuitos.";
+"NSMicrophoneUsageDescription" = "LifeSync AI usa el micrófono para grabar tus notas de voz. El audio se transcribe en tu dispositivo y después se elimina.";
+"NSSpeechRecognitionUsageDescription" = "LifeSync AI usa el reconocimiento de voz del dispositivo para transcribir tus notas de voz.";

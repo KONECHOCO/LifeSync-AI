@@ -15,6 +15,9 @@ struct RootTabView: View {
 
             ProView()
                 .tabItem { Label("tab_pro".localized, systemImage: "crown.fill") }
+
+            SettingsView()
+                .tabItem { Label("tab_settings".localized, systemImage: "gearshape.fill") }
         }
         .tint(.cyan)
         .preferredColorScheme(.dark)

@@ -46,6 +46,13 @@ targets:
         NSLocationAlwaysAndWhenInUseUsageDescription: "LifeSync AI usa aggiornamenti di posizione a basso consumo per creare il diario giornaliero dei luoghi visitati, anche quando l'app non e aperta."
         NSLocationWhenInUseUsageDescription: "LifeSync AI usa la posizione per registrare i luoghi visitati nel tuo diario personale."
         NSMotionUsageDescription: "LifeSync AI usa movimento e passi per completare il riepilogo giornaliero della tua attivita."
+        NSMicrophoneUsageDescription: "LifeSync AI usa il microfono per registrare le tue note vocali. L'audio viene trascritto sul dispositivo e poi eliminato."
+        NSSpeechRecognitionUsageDescription: "LifeSync AI usa il riconoscimento vocale sul dispositivo per trascrivere le tue note vocali."
+        CFBundleLocalizations:
+          - it
+          - en
+          - es
+          - fr
         NSUserTrackingUsageDescription: "LifeSync AI puo usare l'identificatore pubblicitario per mostrare annunci piu pertinenti agli utenti gratuiti."
         UIBackgroundModes:
           - location
@@ -80,3 +87,5 @@ targets:
       - sdk: StoreKit.framework
       - sdk: UserNotifications.framework
       - sdk: AppTrackingTransparency.framework
+      - sdk: Speech.framework
+      - sdk: AVFoundation.framework

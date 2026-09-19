@@ -43,6 +43,12 @@ final class DailyLogAggregator {
         visitedPlaces.append(placeEntry)
     }
     
+    func recordPlace(_ entry: String) {
+        if !visitedPlaces.contains(entry) {
+            visitedPlaces.append(entry)
+        }
+    }
+
     func updateSteps(_ steps: Int) {
         self.currentStepsCount = steps
     }
