@@ -61,6 +61,10 @@ struct ProView: View {
                                 .font(.caption2)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)
+                            Text("pw_sub_length".localized)
+                                .font(.caption2)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.gray)
                         }
 
                         VStack(spacing: 12) {
@@ -75,11 +79,16 @@ struct ProView: View {
                                     .font(.subheadline)
                                     .foregroundColor(.cyan)
                             }
-                            if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
-                                Link("pro_terms".localized, destination: termsURL)
-                                    .font(.footnote)
-                                    .foregroundColor(.gray)
+                            HStack(spacing: 16) {
+                                if let privacyURL = URL(string: "https://github.com/KONECHOCO/LifeSync-AI/blob/main/PRIVACY.md") {
+                                    Link("pw_privacy_link".localized, destination: privacyURL)
+                                }
+                                if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                                    Link("pw_terms_link".localized, destination: termsURL)
+                                }
                             }
+                            .font(.footnote)
+                            .foregroundColor(.gray)
                         }
                     }
                     .padding()

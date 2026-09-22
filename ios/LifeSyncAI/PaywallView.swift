@@ -107,7 +107,12 @@ struct PaywallView: View {
                         .font(.caption2)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.gray)
-                    
+
+                    Text("pw_sub_length".localized)
+                        .font(.caption2)
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.gray)
+
                     // Restore purchases
                     Button("pw_restore".localized) {
                         Task { await subManager.restorePurchases() }
@@ -115,6 +120,20 @@ struct PaywallView: View {
                     .font(.caption)
                     .foregroundColor(.cyan)
                     .padding(.top, 4)
+
+                    // Link obbligatori: privacy policy e termini di utilizzo (EULA)
+                    HStack(spacing: 16) {
+                        if let privacyURL = URL(string: "https://github.com/KONECHOCO/LifeSync-AI/blob/main/PRIVACY.md") {
+                            Link("pw_privacy_link".localized, destination: privacyURL)
+                        }
+                        Text("•").foregroundColor(.gray)
+                        if let termsURL = URL(string: "https://www.apple.com/legal/internet-services/itunes/dev/stdeula/") {
+                            Link("pw_terms_link".localized, destination: termsURL)
+                        }
+                    }
+                    .font(.caption2)
+                    .foregroundColor(.cyan)
+                    .padding(.top, 2)
                 }
                 .padding(.horizontal)
             }
