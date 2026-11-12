@@ -3,7 +3,7 @@
 LifeSync AI is a high-performance iOS life-logging assistant and daily narrative backup application built with SwiftUI, SwiftData, and StoreKit 2.
 
 ![LifeSync AI Banner](https://img.shields.io/badge/iOS-17.0%2B-blue.svg)
-![StoreKit 2](https://img.shields.io/badge/Monetization-StoreKit%202%20(7--Day%20Trial)-green.svg)
+![StoreKit 2](https://img.shields.io/badge/Monetization-StoreKit%202%20(One--Time%20Purchase)-green.svg)
 ![License](https://img.shields.io/badge/License-MIT-purple.svg)
 
 ---
@@ -16,7 +16,9 @@ LifeSync AI is a high-performance iOS life-logging assistant and daily narrative
 - **🤖 Automated AI Daily Summary**: Generates a daily narrative backup report every evening at 11:00 PM.
 - **🔒 Local Daily Archive (SwiftData)**: Private on-device storage for daily activity summaries.
 - **🌍 Native Multi-Language Support (i18n)**: Fully localized in **Italian, English, Spanish, and French**.
-- **💰 StoreKit 2 Subscription Paywall**: Integrated €4.99/month Auto-Renewable Subscription with a 7-Day Free Trial.
+- **💰 StoreKit 2 One-Time Pro Purchase**: €3.99 one-time, non-consumable purchase — no subscription, no recurring charge. Removes ads, unlocks unlimited AI summaries and CSV export.
+- **⌚ Apple Watch Companion App**: Embedded watchOS app that mirrors today's steps, places, rest time, and AI summary via WatchConnectivity.
+- **🎬 Branded Intro Animation**: Short, skippable video shown on every cold launch.
 
 ---
 
@@ -27,8 +29,10 @@ AGENT/
 ├── ios/
 │   └── LifeSyncAI/
 │       ├── LifeSyncApp.swift              # App entry point with SwiftData & StoreKit setup
-│       ├── SubscriptionManager.swift      # StoreKit 2 In-App Purchase logic
-│       ├── PaywallView.swift              # SwiftUI Paywall View with 7-Day Free Trial
+│       ├── PurchaseManager.swift          # StoreKit 2 one-time Pro purchase logic
+│       ├── PaywallView.swift              # SwiftUI Paywall View for the one-time Pro purchase
+│       ├── IntroVideoView.swift           # Skippable branded intro video played on launch
+│       ├── PhoneConnectivityManager.swift # Sends today's summary to the Apple Watch app
 │       ├── LocalizationManager.swift      # Dynamic i18n localization
 │       ├── DeviceActivityManager.swift    # Screen Time & messaging app usage tracking
 │       ├── LocationManager.swift          # CoreLocation passive visit tracker

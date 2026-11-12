@@ -9,8 +9,9 @@ struct ContentView: View {
 
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var motionTracker = MotionTracker()
-    @StateObject private var subscriptionManager = SubscriptionManager.shared
+    @StateObject private var purchaseManager = PurchaseManager.shared
     @StateObject private var unityAdsManager = UnityAdsManager.shared
+    @StateObject private var watchConnectivity = PhoneConnectivityManager.shared
 
     @State private var aiSummaryText: String = "ai_placeholder".localized
     @State private var isGenerating: Bool = false
@@ -179,6 +180,20 @@ struct ContentView: View {
                                 .foregroundColor(.white)
                                 .cornerRadius(10)
                             }
+
+                            Button(action: exportCSV) {
+                                HStack {
+                                    Image(systemName: purchaseManager.isPro ? "tablecells" : "lock.fill")
+                                    Text("export_csv".localized)
+                                }
+                                .font(.caption)
+                                .fontWeight(.semibold)
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 10)
+                                .background(Color.white.opacity(0.08))
+                                .foregroundColor(purchaseManager.isPro ? .white : .gray)
+                                .cornerRadius(10)
+                            }
                         }
                         .padding()
                         .background(Color.white.opacity(0.04))
@@ -197,6 +212,7 @@ struct ContentView: View {
                 loadToday()
                 backfillHistory()
                 refreshActivity()
+                syncWatch()
             }
             .refreshable {
                 refreshActivity()
@@ -232,7 +248,7 @@ struct ContentView: View {
     }
 
     private var summaryButtonTitle: String {
-        subscriptionManager.isSubscribed ? "generate_now".localized : "watch_ad_unlock".localized
+        purchaseManager.isPro ? "generate_now".localized : "watch_ad_unlock".localized
     }
 
     private var todayTitle: String {
@@ -266,6 +282,17 @@ struct ContentView: View {
             in: modelContext
         )
         placesCount = log.placesVisitedCount
+        syncWatch()
+    }
+
+    private func syncWatch() {
+        watchConnectivity.sendTodaySnapshot(
+            steps: motionTracker.stepsToday,
+            places: max(placesCount, locationManager.visitsCountToday),
+            restSeconds: restSeconds,
+            summary: aiSummaryText,
+            isPro: purchaseManager.isPro
+        )
     }
 
     private func backfillHistory() {
@@ -313,7 +340,7 @@ struct ContentView: View {
     // MARK: - Azioni
 
     private func requestAISummaryAccess() {
-        guard !subscriptionManager.isSubscribed else {
+        guard !purchaseManager.isPro else {
             generateAISummary()
             return
         }
@@ -331,6 +358,20 @@ struct ContentView: View {
                     showingPaywall = true
                 }
             }
+        }
+    }
+
+    private func exportCSV() {
+        guard purchaseManager.isPro else {
+            showingPaywall = true
+            return
+        }
+        persistToday(force: true)
+        if let url = DailyLogStore.exportCSV(in: modelContext) {
+            exportURL = url
+            showingShare = true
+        } else {
+            showingExportError = true
         }
     }
 
@@ -364,6 +405,7 @@ struct ContentView: View {
         aiSummaryText = text
         DailyLogStore.upsert(dateString: key, steps: nil, places: nil, summary: text, in: modelContext)
         isGenerating = false
+        syncWatch()
     }
 }
 

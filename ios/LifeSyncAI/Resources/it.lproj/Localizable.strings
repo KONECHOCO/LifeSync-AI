@@ -13,21 +13,22 @@
 "backup_complete" = "Backup Completo";
 "backup_complete_message" = "Il tuo backup giornaliero e archiviato in locale con successo.";
 
-"pw_subtitle" = "Sblocca il tuo assistente diario completo";
-"pw_trial_badge" = "7 GIORNI DI PROVA GRATUITA";
+"pw_subtitle" = "Sostieni il progetto e sblocca tutto, per sempre";
+"pw_onetime_badge" = "ACQUISTO UNICO";
 "pw_f1_t" = "Riepilogo Serale AI Illimitato";
 "pw_f1_s" = "Generazione automatica ogni giorno alle 23:00";
-"pw_f2_t" = "Tracciamento Luoghi & Passi";
-"pw_f2_s" = "CoreLocation Visit a basso consumo";
+"pw_f2_t" = "Esportazione anche in CSV";
+"pw_f2_s" = "Oltre al JSON, esporta il tuo storico pronto per un foglio di calcolo";
 "pw_f3_t" = "Archivio personale";
 "pw_f3_s" = "Salvataggio locale dei dati usati per il riepilogo giornaliero";
 "pw_f4_t" = "Nessuna pubblicità";
 "pw_f4_s" = "Rimuovi i video Unity Ads con LifeSync Pro";
-"pw_cta" = "Inizia 7 Giorni Gratis";
-"pw_price_note" = "Poi 4,99 €/mese. Annulla in qualsiasi momento dalle impostazioni dell'Apple ID.";
+"pw_cta" = "Sblocca LifeSync Pro";
+"pw_cta_price" = "Sblocca LifeSync Pro – %@";
+"pw_price_note" = "Acquisto unico. Nessun abbonamento, nessun addebito ricorrente.";
 "pw_restore" = "Ripristina Acquisti";
-"pw_error_title" = "Abbonamento";
-"pw_unavailable" = "Abbonamento non disponibile al momento. Riprova tra qualche minuto.";
+"pw_error_title" = "Acquisto";
+"pw_unavailable" = "Prodotto non disponibile al momento. Riprova tra qualche minuto.";
 "pw_ok" = "OK";
 
 "notif_title" = "LifeSync AI - Riepilogo della giornata";
@@ -67,11 +68,10 @@
 "stats_total_places" = "Luoghi (7 giorni)";
 "stats_best_day" = "Giorno migliore";
 "stats_no_data" = "Servono alcuni giorni di dati per mostrare le statistiche.";
-"pro_status_active" = "Abbonamento attivo";
+"pro_status_active" = "Pro sbloccato";
 "pro_status_free" = "Versione gratuita";
-"pro_active_desc" = "Grazie! Hai riepiloghi illimitati e nessuna pubblicità.";
+"pro_active_desc" = "Grazie per il supporto! Hai riepiloghi illimitati, nessuna pubblicità ed export CSV.";
 "pro_free_desc" = "Nella versione gratuita il riepilogo si sblocca guardando un breve video.";
-"pro_manage" = "Gestisci abbonamento";
 "pro_terms" = "Termini di utilizzo (EULA Apple)";
 
 "rest_label" = "Tempo fermo";
@@ -122,6 +122,7 @@
 "set_auto_body" = "iOS non permette alle app di leggere o rilevare i messaggi. Puoi però registrarli tu con Comandi: apri Comandi → Automazione → Nuova automazione → Messaggio, poi scegli l'azione \"Registra evento in LifeSync\". Le chiamate invece vengono rilevate automaticamente (solo orario e durata, senza numeri né contatti) mentre l'app è attiva.";
 "set_auto_open" = "Apri Comandi";
 
-"pw_sub_length" = "LifeSync AI Pro • Abbonamento mensile (1 mese)";
 "pw_privacy_link" = "Informativa sulla privacy";
 "pw_terms_link" = "Termini di utilizzo (EULA)";
+"export_csv" = "Esporta CSV (Pro)";
+"intro_skip" = "Salta";

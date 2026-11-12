@@ -2,45 +2,46 @@ import Foundation
 import StoreKit
 import Combine
 
-/// Gestore Abbonamenti In-App Purchase tramite StoreKit 2 per App Store
-/// Gestisce l'abbonamento Auto-Rinnovabile €4,99/mese con 7 Giorni di Prova Gratuita.
-final class SubscriptionManager: ObservableObject {
-    static let shared = SubscriptionManager()
-    
-    // Product ID configurato su App Store Connect
-    static let monthlySubscriptionID = "com.lifesync.ai.pro.monthly"
-    
-    @Published var subscriptionProduct: Product?
-    @Published var isSubscribed: Bool = false
+/// Gestore dell'acquisto Pro tramite StoreKit 2.
+/// LifeSync AI Pro è un acquisto unico (non consumabile) di 3,99 €: rimuove la pubblicità
+/// e sblocca alcune funzioni aggiuntive. Nessun abbonamento, nessun addebito ricorrente.
+final class PurchaseManager: ObservableObject {
+    static let shared = PurchaseManager()
+
+    // Product ID configurato su App Store Connect (non consumabile)
+    static let proProductID = "com.lifesync.ai.pro.onetime"
+
+    @Published var proProduct: Product?
+    @Published var isPro: Bool = false
     @Published var isLoading: Bool = false
     @Published var errorMessage: String?
-    
+
     private var transactionListener: Task<Void, Error>?
-    
+
     init() {
         // Avvia l'ascoltatore di transazioni in background
         transactionListener = listenForTransactions()
-        
+
         Task {
             await fetchProducts()
-            await updateSubscriptionStatus()
+            await updatePurchaseStatus()
         }
     }
-    
+
     deinit {
         transactionListener?.cancel()
     }
-    
+
     /// Recupera le informazioni del prodotto da App Store
     @MainActor
     func fetchProducts() async {
         isLoading = true
         do {
-            let products = try await Product.products(for: [SubscriptionManager.monthlySubscriptionID])
-            self.subscriptionProduct = products.first
+            let products = try await Product.products(for: [PurchaseManager.proProductID])
+            self.proProduct = products.first
             self.isLoading = false
             if products.isEmpty {
-                print("⚠️ Nessun prodotto trovato per \(SubscriptionManager.monthlySubscriptionID)")
+                print("⚠️ Nessun prodotto trovato per \(PurchaseManager.proProductID)")
             }
             print("✅ Prodotto caricato da App Store: \(products.first?.displayName ?? "") - \(products.first?.displayPrice ?? "")")
         } catch {
@@ -48,39 +49,39 @@ final class SubscriptionManager: ObservableObject {
             print("⚠️ Errore StoreKit: \(error.localizedDescription)")
         }
     }
-    
-    /// Acquista l'abbonamento con 7 giorni di prova gratis
+
+    /// Acquista LifeSync AI Pro con un pagamento unico (nessun abbonamento).
     @MainActor
-    func purchaseMonthlySubscription() async -> Bool {
-        if subscriptionProduct == nil {
+    func purchasePro() async -> Bool {
+        if proProduct == nil {
             await fetchProducts()
         }
-        guard let product = subscriptionProduct else {
+        guard let product = proProduct else {
             errorMessage = "pw_unavailable".localized
             return false
         }
-        
+
         isLoading = true
         do {
             let result = try await product.purchase()
             isLoading = false
-            
+
             switch result {
             case .success(let verification):
                 let transaction = try checkVerified(verification)
-                await updateSubscriptionStatus()
+                await updatePurchaseStatus()
                 await transaction.finish()
-                print("🎉 Abbonamento attivato con successo (7 giorni gratis trascorsi prima del primo addebito di €4,99)!")
+                print("🎉 LifeSync AI Pro sbloccato con acquisto unico!")
                 return true
-                
+
             case .userCancelled:
                 print("ℹ️ Acquisto annullato dall'utente.")
                 return false
-                
+
             case .pending:
                 print("⏳ Acquisto in attesa di approvazione (es. In-App Purchase della famiglia).")
                 return false
-                
+
             @unknown default:
                 return false
             }
@@ -90,47 +91,47 @@ final class SubscriptionManager: ObservableObject {
             return false
         }
     }
-    
+
     /// Ripristina gli acquisti dell'utente
     @MainActor
     func restorePurchases() async {
         isLoading = true
         do {
             try await AppStore.sync()
-            await updateSubscriptionStatus()
+            await updatePurchaseStatus()
             isLoading = false
         } catch {
             isLoading = false
             errorMessage = error.localizedDescription
         }
     }
-    
-    /// Verifica lo stato dell'abbonamento attivo dell'utente
+
+    /// Verifica se l'utente possiede già l'acquisto Pro non consumabile.
     @MainActor
-    func updateSubscriptionStatus() async {
-        var hasActiveSub = false
-        
+    func updatePurchaseStatus() async {
+        var hasPro = false
+
         for await result in Transaction.currentEntitlements {
             do {
                 let transaction = try checkVerified(result)
-                if transaction.productID == SubscriptionManager.monthlySubscriptionID && transaction.revocationDate == nil {
-                    hasActiveSub = true
+                if transaction.productID == PurchaseManager.proProductID && transaction.revocationDate == nil {
+                    hasPro = true
                 }
             } catch {
                 print("⚠️ Errore verifica transazione: \(error)")
             }
         }
-        
-        self.isSubscribed = hasActiveSub
+
+        self.isPro = hasPro
     }
-    
-    /// Ascolta nuove transazioni ed aggiornamenti di rinnovo
+
+    /// Ascolta nuove transazioni (es. acquisto completato dalla famiglia, ripristino automatico)
     private func listenForTransactions() -> Task<Void, Error> {
         return Task.detached {
             for await result in Transaction.updates {
                 do {
                     let transaction = try self.checkVerified(result)
-                    await self.updateSubscriptionStatus()
+                    await self.updatePurchaseStatus()
                     await transaction.finish()
                 } catch {
                     print("⚠️ Transazione non verificata: \(error)")
@@ -138,7 +139,7 @@ final class SubscriptionManager: ObservableObject {
             }
         }
     }
-    
+
     /// Helper per verificare la crittografia JWS della transazione Apple
     private func checkVerified<T>(_ result: VerificationResult<T>) throws -> T {
         switch result {

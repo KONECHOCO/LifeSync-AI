@@ -1,8 +1,8 @@
 import SwiftUI
 
-/// Scheda Abbonamento: stato Pro, avvio prova gratuita, ripristino e gestione.
+/// Scheda Pro: stato dell'acquisto, sblocco, ripristino ed export extra.
 struct ProView: View {
-    @StateObject private var subscriptionManager = SubscriptionManager.shared
+    @StateObject private var purchaseManager = PurchaseManager.shared
     @State private var showingPaywall = false
 
     var body: some View {
@@ -13,18 +13,18 @@ struct ProView: View {
                 ScrollView {
                     VStack(spacing: 20) {
                         VStack(spacing: 10) {
-                            Image(systemName: subscriptionManager.isSubscribed ? "crown.fill" : "crown")
+                            Image(systemName: purchaseManager.isPro ? "crown.fill" : "crown")
                                 .font(.system(size: 44))
                                 .foregroundColor(.yellow)
                             Text("LifeSync AI Pro")
                                 .font(.title2)
                                 .fontWeight(.bold)
                                 .foregroundColor(.white)
-                            Text(subscriptionManager.isSubscribed ? "pro_status_active".localized : "pro_status_free".localized)
+                            Text(purchaseManager.isPro ? "pro_status_active".localized : "pro_status_free".localized)
                                 .font(.subheadline)
                                 .fontWeight(.semibold)
-                                .foregroundColor(subscriptionManager.isSubscribed ? .green : .gray)
-                            Text(subscriptionManager.isSubscribed ? "pro_active_desc".localized : "pro_free_desc".localized)
+                                .foregroundColor(purchaseManager.isPro ? .green : .gray)
+                            Text(purchaseManager.isPro ? "pro_active_desc".localized : "pro_free_desc".localized)
                                 .font(.caption)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)
@@ -35,16 +35,17 @@ struct ProView: View {
                         .cornerRadius(20)
 
                         VStack(alignment: .leading, spacing: 16) {
-                            FeatureRow(icon: "sparkles", color: .yellow, title: "pw_f1_t".localized, subtitle: "pw_f1_s".localized)
-                            FeatureRow(icon: "lock.fill", color: .green, title: "pw_f3_t".localized, subtitle: "pw_f3_s".localized)
                             FeatureRow(icon: "nosign", color: .pink, title: "pw_f4_t".localized, subtitle: "pw_f4_s".localized)
+                            FeatureRow(icon: "sparkles", color: .yellow, title: "pw_f1_t".localized, subtitle: "pw_f1_s".localized)
+                            FeatureRow(icon: "square.and.arrow.up.on.square", color: .cyan, title: "pw_f2_t".localized, subtitle: "pw_f2_s".localized)
+                            FeatureRow(icon: "lock.fill", color: .green, title: "pw_f3_t".localized, subtitle: "pw_f3_s".localized)
                         }
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding()
                         .background(Color.white.opacity(0.05))
                         .cornerRadius(20)
 
-                        if !subscriptionManager.isSubscribed {
+                        if !purchaseManager.isPro {
                             Button {
                                 showingPaywall = true
                             } label: {
@@ -61,24 +62,15 @@ struct ProView: View {
                                 .font(.caption2)
                                 .multilineTextAlignment(.center)
                                 .foregroundColor(.gray)
-                            Text("pw_sub_length".localized)
-                                .font(.caption2)
-                                .multilineTextAlignment(.center)
-                                .foregroundColor(.gray)
                         }
 
                         VStack(spacing: 12) {
                             Button("pw_restore".localized) {
-                                Task { await subscriptionManager.restorePurchases() }
+                                Task { await purchaseManager.restorePurchases() }
                             }
                             .font(.subheadline)
                             .foregroundColor(.cyan)
 
-                            if let manageURL = URL(string: "https://apps.apple.com/account/subscriptions") {
-                                Link("pro_manage".localized, destination: manageURL)
-                                    .font(.subheadline)
-                                    .foregroundColor(.cyan)
-                            }
                             HStack(spacing: 16) {
                                 if let privacyURL = URL(string: "https://github.com/KONECHOCO/LifeSync-AI/blob/main/PRIVACY.md") {
                                     Link("pw_privacy_link".localized, destination: privacyURL)

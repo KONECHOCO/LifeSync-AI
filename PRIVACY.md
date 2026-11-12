@@ -17,9 +17,11 @@ This data is kept in the app's local database on your device. We do not run any 
 
 **Voice notes.** The microphone is used only when you tap Record. Speech is transcribed on your device using Apple's on-device speech recognition; the audio file is deleted right after transcription and only the text is kept. If on-device recognition is not available for your language, the feature is disabled and no audio is sent anywhere.
 
-**Advertising (free version).** The free version shows video ads provided by Unity Ads. Unity may collect your device's advertising identifier and ad-interaction data to deliver and measure ads, and, if you allow it in the App Tracking Transparency prompt, for personalised ads. You can decline tracking in the prompt or in iOS Settings → Privacy & Security → Tracking. The paid LifeSync Pro subscription removes ads. See Unity's privacy policy: https://unity.com/legal/privacy-policy
+**Advertising (free version).** The free version shows video ads provided by Unity Ads. Unity may collect your device's advertising identifier and ad-interaction data to deliver and measure ads, and, if you allow it in the App Tracking Transparency prompt, for personalised ads. You can decline tracking in the prompt or in iOS Settings → Privacy & Security → Tracking. The LifeSync Pro one-time purchase removes ads. See Unity's privacy policy: https://unity.com/legal/privacy-policy
 
-**Purchases.** Subscriptions are handled entirely by Apple (StoreKit). We do not receive your payment details.
+**Purchases.** LifeSync AI Pro is a one-time, non-consumable purchase (no subscription, no recurring charge), handled entirely by Apple (StoreKit). We do not receive your payment details.
+
+**Apple Watch.** If you pair an Apple Watch, the iPhone app sends it today's steps, visited places, rest time and AI summary using Apple's WatchConnectivity framework, so you can see your daily snapshot on your wrist. This data travels only between your own iPhone and your own Apple Watch; it is never sent to us or to any third party.
 
 **Children.** The app is not directed to children under 13.
 
@@ -42,9 +44,11 @@ I dati restano nel database locale dell'app sul tuo dispositivo. Non gestiamo al
 
 **Note vocali.** Il microfono è usato solo quando tocchi Registra. Il parlato è trascritto sul dispositivo con il riconoscimento vocale on-device di Apple; il file audio viene eliminato subito dopo la trascrizione e resta solo il testo. Se il riconoscimento on-device non è disponibile per la tua lingua, la funzione è disattivata e nessun audio viene inviato.
 
-**Pubblicità (versione gratuita).** La versione gratuita mostra video pubblicitari forniti da Unity Ads. Unity può raccogliere l'identificatore pubblicitario del dispositivo e i dati di interazione con gli annunci per mostrarli e misurarli e, se acconsenti nella richiesta di App Tracking Transparency, per annunci personalizzati. Puoi rifiutare il tracciamento nella richiesta o in Impostazioni iOS → Privacy e sicurezza → Tracciamento. L'abbonamento LifeSync Pro rimuove la pubblicità. Informativa di Unity: https://unity.com/legal/privacy-policy
+**Pubblicità (versione gratuita).** La versione gratuita mostra video pubblicitari forniti da Unity Ads. Unity può raccogliere l'identificatore pubblicitario del dispositivo e i dati di interazione con gli annunci per mostrarli e misurarli e, se acconsenti nella richiesta di App Tracking Transparency, per annunci personalizzati. Puoi rifiutare il tracciamento nella richiesta o in Impostazioni iOS → Privacy e sicurezza → Tracciamento. L'acquisto una tantum LifeSync Pro rimuove la pubblicità. Informativa di Unity: https://unity.com/legal/privacy-policy
 
-**Acquisti.** Gli abbonamenti sono gestiti interamente da Apple (StoreKit). Non riceviamo i tuoi dati di pagamento.
+**Acquisti.** LifeSync AI Pro è un acquisto unico non consumabile (nessun abbonamento, nessun addebito ricorrente), gestito interamente da Apple (StoreKit). Non riceviamo i tuoi dati di pagamento.
+
+**Apple Watch.** Se abbini un Apple Watch, l'app su iPhone gli invia i passi di oggi, i luoghi visitati, il tempo di riposo e il riepilogo AI tramite il framework WatchConnectivity di Apple, così puoi vedere il tuo riepilogo giornaliero al polso. Questi dati viaggiano solo tra il tuo iPhone e il tuo Apple Watch: non vengono mai inviati a noi né a terze parti.
 
 **Minori.** L'app non è rivolta a minori di 13 anni.
 

@@ -13,21 +13,22 @@
 "backup_complete" = "Backup Complete";
 "backup_complete_message" = "Your daily backup was stored locally.";
 
-"pw_subtitle" = "Unlock your complete journal assistant";
-"pw_trial_badge" = "7-DAY FREE TRIAL";
+"pw_subtitle" = "Support the project and unlock everything, forever";
+"pw_onetime_badge" = "ONE-TIME PURCHASE";
 "pw_f1_t" = "Unlimited AI Evening Summary";
 "pw_f1_s" = "Generated automatically every day at 23:00";
-"pw_f2_t" = "Places & Steps Tracking";
-"pw_f2_s" = "Low-power CoreLocation visits";
+"pw_f2_t" = "CSV export";
+"pw_f2_s" = "Export your history as CSV too, ready for a spreadsheet";
 "pw_f3_t" = "Personal archive";
 "pw_f3_s" = "Local storage of the data used for your daily summary";
 "pw_f4_t" = "No ads";
 "pw_f4_s" = "Remove Unity Ads videos with LifeSync Pro";
-"pw_cta" = "Start 7-Day Free Trial";
-"pw_price_note" = "Then €4.99/month. Cancel anytime in your Apple ID settings.";
+"pw_cta" = "Unlock LifeSync Pro";
+"pw_cta_price" = "Unlock LifeSync Pro – %@";
+"pw_price_note" = "One-time purchase. No subscription, no recurring charge.";
 "pw_restore" = "Restore Purchases";
-"pw_error_title" = "Subscription";
-"pw_unavailable" = "Subscription is not available right now. Please try again in a few minutes.";
+"pw_error_title" = "Purchase";
+"pw_unavailable" = "This product is not available right now. Please try again in a few minutes.";
 "pw_ok" = "OK";
 
 "notif_title" = "LifeSync AI - Daily summary";
@@ -67,11 +68,10 @@
 "stats_total_places" = "Places (7 days)";
 "stats_best_day" = "Best day";
 "stats_no_data" = "A few days of data are needed to show statistics.";
-"pro_status_active" = "Subscription active";
+"pro_status_active" = "Pro unlocked";
 "pro_status_free" = "Free version";
-"pro_active_desc" = "Thank you! You have unlimited summaries and no ads.";
+"pro_active_desc" = "Thank you for your support! You have unlimited summaries, no ads, and CSV export.";
 "pro_free_desc" = "In the free version, the summary unlocks by watching a short video.";
-"pro_manage" = "Manage subscription";
 "pro_terms" = "Terms of Use (Apple EULA)";
 
 "rest_label" = "Still time";
@@ -122,6 +122,7 @@
 "set_auto_body" = "iOS does not allow apps to read or detect messages. You can log them yourself with Shortcuts: open Shortcuts → Automation → New Automation → Message, then choose the action \"Log event in LifeSync\". Calls are detected automatically (time and duration only, no numbers or contacts) while the app is active.";
 "set_auto_open" = "Open Shortcuts";
 
-"pw_sub_length" = "LifeSync AI Pro • Monthly subscription (1 month)";
 "pw_privacy_link" = "Privacy Policy";
 "pw_terms_link" = "Terms of Use (EULA)";
+"export_csv" = "Export CSV (Pro)";
+"intro_skip" = "Skip";
