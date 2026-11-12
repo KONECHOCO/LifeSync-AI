@@ -13,7 +13,7 @@ struct LifeSyncApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootTabView()
+            RootContainerView()
         }
         .modelContainer(LocalStore.container)
     }

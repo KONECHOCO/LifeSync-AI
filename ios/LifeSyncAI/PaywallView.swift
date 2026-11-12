@@ -1,22 +1,21 @@
 import SwiftUI
 import StoreKit
 
-/// Schermata Paywall per la monetizzazione dell'app LifeSync AI Pro
-/// Offre 7 Giorni di Prova Gratuita, poi €4,99/mese auto-rinnovabile.
+/// Schermata Paywall per LifeSync AI Pro: acquisto unico di 3,99 € (nessun abbonamento).
 struct PaywallView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject private var subManager = SubscriptionManager.shared
+    @StateObject private var purchaseManager = PurchaseManager.shared
     @State private var isPurchasing = false
     @State private var showError = false
     @State private var errorText = ""
-    
+
     var body: some View {
         ZStack {
             Color(red: 9/255, green: 13/255, blue: 22/255)
                 .ignoresSafeArea()
-            
+
             VStack(spacing: 24) {
-                
+
                 // Pulsante Chiudi
                 HStack {
                     Spacer()
@@ -27,7 +26,7 @@ struct PaywallView: View {
                     }
                 }
                 .padding(.horizontal)
-                
+
                 // Hero App Icon & Title
                 VStack(spacing: 12) {
                     ZStack {
@@ -35,31 +34,29 @@ struct PaywallView: View {
                             .fill(LinearGradient(colors: [.cyan, .purple], startPoint: .topLeading, endPoint: .bottomTrailing))
                             .frame(width: 80, height: 80)
                             .shadow(color: .cyan.opacity(0.5), radius: 20)
-                        
+
                         Image(systemName: "brain.head.profile")
                             .font(.system(size: 40))
                             .foregroundColor(.white)
                     }
-                    
+
                     Text("LifeSync AI Pro")
                         .font(.largeTitle)
                         .fontWeight(.black)
                         .foregroundColor(.white)
-                    
+
                     Text("pw_subtitle".localized)
                         .font(.subheadline)
                         .foregroundColor(.gray)
                 }
-                
-                // 7 Days Trial Highlight Badge
+
+                // One-time purchase badge (no subscription, no trial)
                 HStack(spacing: 8) {
-                    Image(systemName: "star.fill")
+                    Image(systemName: "checkmark.seal.fill")
                         .foregroundColor(.yellow)
-                    Text("pw_trial_badge".localized)
+                    Text("pw_onetime_badge".localized)
                         .font(.caption)
                         .fontWeight(.bold)
-                        .foregroundColor(.yellow)
-                    Image(systemName: "star.fill")
                         .foregroundColor(.yellow)
                 }
                 .padding(.horizontal, 16)
@@ -67,29 +64,29 @@ struct PaywallView: View {
                 .background(Color.yellow.opacity(0.15))
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.yellow.opacity(0.4), lineWidth: 1))
                 .cornerRadius(20)
-                
+
                 // Features Included List
                 VStack(alignment: .leading, spacing: 16) {
-                    FeatureRow(icon: "sparkles", color: .yellow, title: "pw_f1_t".localized, subtitle: "pw_f1_s".localized)
-                    FeatureRow(icon: "location.fill", color: .cyan, title: "pw_f2_t".localized, subtitle: "pw_f2_s".localized)
-                    FeatureRow(icon: "lock.fill", color: .green, title: "pw_f3_t".localized, subtitle: "pw_f3_s".localized)
                     FeatureRow(icon: "nosign", color: .pink, title: "pw_f4_t".localized, subtitle: "pw_f4_s".localized)
+                    FeatureRow(icon: "sparkles", color: .yellow, title: "pw_f1_t".localized, subtitle: "pw_f1_s".localized)
+                    FeatureRow(icon: "square.and.arrow.up.on.square", color: .cyan, title: "pw_f2_t".localized, subtitle: "pw_f2_s".localized)
+                    FeatureRow(icon: "lock.fill", color: .green, title: "pw_f3_t".localized, subtitle: "pw_f3_s".localized)
                 }
                 .padding()
                 .background(Color.white.opacity(0.04))
                 .cornerRadius(20)
-                
+
                 Spacer()
-                
-                // CTA Subscription Button
+
+                // CTA Purchase Button
                 VStack(spacing: 12) {
-                    Button(action: startTrial) {
+                    Button(action: purchase) {
                         HStack {
-                            if isPurchasing || subManager.isLoading {
+                            if isPurchasing || purchaseManager.isLoading {
                                 ProgressView()
                                     .tint(.black)
                             } else {
-                                Text("pw_cta".localized)
+                                Text(ctaTitle)
                                     .font(.headline)
                                     .fontWeight(.bold)
                             }
@@ -101,21 +98,16 @@ struct PaywallView: View {
                         .cornerRadius(16)
                         .shadow(color: .cyan.opacity(0.4), radius: 15)
                     }
-                    .disabled(isPurchasing || subManager.isLoading)
-                    
-                    Text("pw_price_note".localized)
-                        .font(.caption2)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.gray)
+                    .disabled(isPurchasing || purchaseManager.isLoading)
 
-                    Text("pw_sub_length".localized)
+                    Text("pw_price_note".localized)
                         .font(.caption2)
                         .multilineTextAlignment(.center)
                         .foregroundColor(.gray)
 
                     // Restore purchases
                     Button("pw_restore".localized) {
-                        Task { await subManager.restorePurchases() }
+                        Task { await purchaseManager.restorePurchases() }
                     }
                     .font(.caption)
                     .foregroundColor(.cyan)
@@ -145,18 +137,25 @@ struct PaywallView: View {
             Text(errorText)
         }
     }
-    
-    private func startTrial() {
+
+    private var ctaTitle: String {
+        if let price = purchaseManager.proProduct?.displayPrice {
+            return String(format: "pw_cta_price".localized, price)
+        }
+        return "pw_cta".localized
+    }
+
+    private func purchase() {
         isPurchasing = true
         Task {
-            let success = await subManager.purchaseMonthlySubscription()
+            let success = await purchaseManager.purchasePro()
             isPurchasing = false
             if success {
                 dismiss()
-            } else if let message = subManager.errorMessage {
+            } else if let message = purchaseManager.errorMessage {
                 errorText = message
                 showError = true
-                subManager.errorMessage = nil
+                purchaseManager.errorMessage = nil
             }
         }
     }
@@ -167,14 +166,14 @@ struct FeatureRow: View {
     let color: Color
     let title: String
     let subtitle: String
-    
+
     var body: some View {
         HStack(spacing: 14) {
             Image(systemName: icon)
                 .font(.title3)
                 .foregroundColor(color)
                 .frame(width: 32)
-            
+
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.subheadline)

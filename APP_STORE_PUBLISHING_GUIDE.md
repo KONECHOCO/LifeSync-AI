@@ -2,7 +2,7 @@
 
 Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync AI** su **App Store** con una strategia di **Monetizzazione Ibrida**:
 1. **Utenti Free**: Video Ads Rewarded ed Interstitial tramite **Unity Ads (Cloud Unity Organization Game ID: `687287710`)**.
-2. **Utenti Pro**: Abbonamento Auto-Rinnovabile senza annunci (**€4,99/mese con 7 Giorni di Prova Gratis**).
+2. **Utenti Pro**: Acquisto unico (non consumabile) senza annunci (**3,99 € una tantum, nessun abbonamento**).
 
 ---
 
@@ -18,14 +18,13 @@ Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync A
 
 ---
 
-## 💰 PARTE 2: Configurazione Abbonamento StoreKit 2 (7 Giorni Gratis)
+## 💰 PARTE 2: Configurazione Acquisto Unico StoreKit 2 (nessun abbonamento)
 
 1. Accedi a [App Store Connect](https://appstoreconnect.apple.com) -> **Le mie App**.
-2. Vai nella sezione **Abbonamenti**:
-   - Gruppo di Abbonamenti: `LifeSync Pro`.
-   - **ID Prodotto**: `com.lifesync.ai.pro.monthly`
-   - **Prezzo**: €4,99 / mese.
-   - **Offerta Introduttiva**: **7 Giorni di Prova Gratuita** (Free Trial).
+2. Vai nella sezione **Acquisti In-App**:
+   - Tipo: **Non Consumabile** (one-time purchase, non un abbonamento).
+   - **ID Prodotto**: `com.lifesync.ai.pro.onetime`
+   - **Prezzo**: 3,99 € (pagamento unico, nessun rinnovo).
 
 ---
 
@@ -33,8 +32,10 @@ Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync A
 
 1. Apri Xcode su Mac ed importa la cartella `ios/LifeSyncAI/`:
    - `UnityAdsManager.swift` (Manager SDK Unity Ads)
-   - `SubscriptionManager.swift` (StoreKit 2)
+   - `PurchaseManager.swift` (StoreKit 2, acquisto unico Pro)
    - `PaywallView.swift` (Paywall Pro)
+   - `IntroVideoView.swift` (video di apertura)
+   - `PhoneConnectivityManager.swift` (sincronizzazione con Apple Watch)
    - `LocalizationManager.swift` (Multi-lingua IT, EN, ES, FR)
    - `DeviceActivityManager.swift` (Screen Time & Messaging)
    - `LocationManager.swift`

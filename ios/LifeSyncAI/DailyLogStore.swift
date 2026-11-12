@@ -126,4 +126,37 @@ enum DailyLogStore {
             return nil
         }
     }
+
+    /// Esporta lo storico giornaliero in formato CSV (funzione LifeSync AI Pro).
+    static func exportCSV(in context: ModelContext) -> URL? {
+        let dayDescriptor = FetchDescriptor<DailyBackupLog>(sortBy: [SortDescriptor(\.dateString)])
+        guard let logs = try? context.fetch(dayDescriptor) else { return nil }
+
+        func csvEscape(_ field: String) -> String {
+            guard field.contains(",") || field.contains("\"") || field.contains("\n") else { return field }
+            return "\"\(field.replacingOccurrences(of: "\"", with: "\"\""))\""
+        }
+
+        var lines = ["date,steps,places,summary"]
+        for log in logs {
+            let places = log.placesList.joined(separator: "; ")
+            let summary = log.aiGeneratedSummary ?? ""
+            lines.append([
+                log.dateString,
+                String(log.stepsCount),
+                csvEscape(places),
+                csvEscape(summary)
+            ].joined(separator: ","))
+        }
+        let csvText = lines.joined(separator: "\n")
+
+        let url = FileManager.default.temporaryDirectory
+            .appendingPathComponent("LifeSync-backup-\(key(for: Date())).csv")
+        do {
+            try csvText.write(to: url, atomically: true, encoding: .utf8)
+            return url
+        } catch {
+            return nil
+        }
+    }
 }
