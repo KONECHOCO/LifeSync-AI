@@ -115,7 +115,7 @@ targets:
         INFOPLIST_FILE: "ios/LifeSyncAI Watch App/Info.plist"
         CODE_SIGN_STYLE: Automatic
         ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
-        SKIP_INSTALL: "NO"
+        SKIP_INSTALL: "YES"
         ENABLE_USER_SCRIPT_SANDBOXING: "NO"
     dependencies:
       - sdk: WatchConnectivity.framework
