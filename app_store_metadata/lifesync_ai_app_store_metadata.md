@@ -7,7 +7,7 @@
 - SKU: `lifesync-ai-ios`
 - Category: Productivity
 - Age rating: 4+
-- Version: `1.0`
+- Version: `1.1`
 - In-app purchase: `com.lifesync.ai.pro.onetime` (non-consumable, one-time purchase)
 - Price target: `EUR 3.99` (one time, no subscription)
 - Companion app: Apple Watch (WatchConnectivity, embedded `com.konechoco.lifesyncai.watchkitapp`)
