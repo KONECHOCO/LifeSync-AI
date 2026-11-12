@@ -107,6 +107,14 @@ targets:
       path: "ios/LifeSyncAI Watch App/Info.plist"
       properties:
         CFBundleIconName: AppIcon
+        CFBundleDisplayName: "LifeSync AI"
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: com.konechoco.lifesyncai
+        CFBundleLocalizations:
+          - it
+          - en
+          - es
+          - fr
     settings:
       base:
         PRODUCT_BUNDLE_IDENTIFIER: com.konechoco.lifesyncai.watchkitapp

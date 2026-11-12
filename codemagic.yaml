@@ -74,7 +74,12 @@ workflows:
       - name: Verify IPA build number
         script: |
           IPA=$(ls build/ios/ipa/*.ipa | head -1)
-          unzip -p "$IPA" 'Payload/*.app/Info.plist' > /tmp/ipa_info.plist
+          APP_DIR=$(unzip -Z1 "$IPA" | grep -E '^Payload/[^/]+\.app/Info.plist$' | head -1)
+          unzip -p "$IPA" "$APP_DIR" > /tmp/ipa_info.plist
+          WATCH_DIR=$(unzip -Z1 "$IPA" | grep -E '/Watch/[^/]+\.app/Info.plist$' | head -1)
+          unzip -p "$IPA" "$WATCH_DIR" > /tmp/watch_info.plist
+          echo "Watch WKApplication = $(/usr/libexec/PlistBuddy -c 'Print :WKApplication' /tmp/watch_info.plist)"
+          echo "Watch WKCompanionAppBundleIdentifier = $(/usr/libexec/PlistBuddy -c 'Print :WKCompanionAppBundleIdentifier' /tmp/watch_info.plist)"
           echo "IPA CFBundleVersion = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleVersion' /tmp/ipa_info.plist)"
           echo "IPA CFBundleShortVersionString = $(/usr/libexec/PlistBuddy -c 'Print :CFBundleShortVersionString' /tmp/ipa_info.plist)"
           unzip -l "$IPA" | grep -i "Watch/.*\.app/Info.plist" || { echo "ERRORE: app Watch non incorporata nell'IPA"; exit 1; }
