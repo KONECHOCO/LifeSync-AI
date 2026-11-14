@@ -81,9 +81,6 @@ targets:
     dependencies:
       - sdk: CoreLocation.framework
       - sdk: CoreMotion.framework
-      - sdk: DeviceActivity.framework
-      - sdk: FamilyControls.framework
-      - sdk: ManagedSettings.framework
       - sdk: StoreKit.framework
       - sdk: UserNotifications.framework
       - sdk: AppTrackingTransparency.framework

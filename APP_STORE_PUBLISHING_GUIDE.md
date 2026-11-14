@@ -37,7 +37,6 @@ Questa guida ti accompagna passo-passo nella pubblicazione dell'app **LifeSync A
    - `IntroVideoView.swift` (video di apertura)
    - `PhoneConnectivityManager.swift` (sincronizzazione con Apple Watch)
    - `LocalizationManager.swift` (Multi-lingua IT, EN, ES, FR)
-   - `DeviceActivityManager.swift` (Screen Time & Messaging)
    - `LocationManager.swift`
    - `MotionTracker.swift`
    - `DailyLogAggregator.swift`

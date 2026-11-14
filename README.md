@@ -11,7 +11,6 @@ LifeSync AI is a high-performance iOS life-logging assistant and daily narrative
 ## 🌟 Key Features
 
 - **📍 Battery-Efficient Motion & Location Log (`CoreLocation` & `CoreMotion`)**: Uses `CLVisit` and `Significant Location Changes` to consume <0.8% battery per day.
-- **💬 Communication Usage Module (`DeviceActivity`)**: Prepared for Screen Time-based communication app usage when the Apple entitlement is approved.
 - **🎙️ Quick Voice Journaling (`AVFoundation` & Siri Shortcuts)**: Record quick audio thoughts that are transcribed and summarized into the daily backup.
 - **🤖 Automated AI Daily Summary**: Generates a daily narrative backup report every evening at 11:00 PM.
 - **🔒 Local Daily Archive (SwiftData)**: Private on-device storage for daily activity summaries.
@@ -34,7 +33,6 @@ AGENT/
 │       ├── IntroVideoView.swift           # Skippable branded intro video played on launch
 │       ├── PhoneConnectivityManager.swift # Sends today's summary to the Apple Watch app
 │       ├── LocalizationManager.swift      # Dynamic i18n localization
-│       ├── DeviceActivityManager.swift    # Screen Time & messaging app usage tracking
 │       ├── LocationManager.swift          # CoreLocation passive visit tracker
 │       ├── MotionTracker.swift            # CoreMotion pedometer & activity tracker
 │       ├── DailyLogAggregator.swift       # SwiftData DailyBackupLog model
@@ -69,7 +67,7 @@ Open `http://localhost:8080` in your browser to test the interactive simulator a
 
 ## 🔒 App Store Compliance & Privacy
 
-- Operates strictly within official Apple iOS APIs (`CoreLocation`, `CoreMotion`, `DeviceActivity` when entitlement-approved, and StoreKit 2).
+- Operates strictly within official Apple iOS APIs (`CoreLocation`, `CoreMotion`, `CallKit`, `WatchConnectivity` and StoreKit 2; no Screen Time APIs).
 - No unauthorized keylogging or screen recording. 100% compliant with Apple App Review Guidelines.
 
 ---

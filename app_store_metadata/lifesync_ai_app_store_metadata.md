@@ -16,7 +16,7 @@
 
 LifeSync AI is a personal daily activity journal. The first version uses CoreLocation visit monitoring, CoreMotion pedometer data, local notifications, StoreKit 2 (one-time non-consumable purchase), and Unity Ads for rewarded/interstitial monetization on the free tier. The app opens with a short (3s, skippable) branded intro animation before showing the main screen.
 
-The AI summary in this build is generated locally as a deterministic preview of the daily report flow. No raw private messages, SMS content, call history, or screen recording data is collected. The DeviceActivity module is prepared for entitlement-approved Screen Time usage, but the first App Store build does not require reviewer access to private communication data.
+The AI summary in this build is generated locally as a deterministic preview of the daily report flow. No raw private messages, SMS content, call history, or screen recording data is collected. The app does not include any Screen Time functionality and does not link or use the FamilyControls / DeviceActivity / ManagedSettings frameworks.
 
 LifeSync AI Pro is a one-time purchase (not a subscription): it permanently removes ads and unlocks unlimited AI summaries plus CSV export. There is no recurring billing, trial period, or subscription to manage.
 
