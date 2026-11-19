@@ -10,7 +10,6 @@ struct ContentView: View {
     @StateObject private var locationManager = LocationManager.shared
     @StateObject private var motionTracker = MotionTracker()
     @StateObject private var purchaseManager = PurchaseManager.shared
-    @StateObject private var unityAdsManager = UnityAdsManager.shared
     @StateObject private var watchConnectivity = PhoneConnectivityManager.shared
 
     @State private var aiSummaryText: String = "ai_placeholder".localized
@@ -345,18 +344,11 @@ struct ContentView: View {
             return
         }
 
-        guard let presenter = UIViewController.topMostViewController() else {
-            showingPaywall = true
-            return
-        }
-
-        unityAdsManager.showRewardedAd(from: presenter) { didEarnReward in
-            DispatchQueue.main.async {
-                if didEarnReward {
-                    generateAISummary()
-                } else {
-                    showingPaywall = true
-                }
+        AdMobManager.shared.showRewarded { didEarnReward in
+            if didEarnReward {
+                generateAISummary()
+            } else {
+                showingPaywall = true
             }
         }
     }

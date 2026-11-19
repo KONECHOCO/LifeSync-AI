@@ -22,7 +22,7 @@
 "pw_f3_t" = "Archivo personal";
 "pw_f3_s" = "Almacenamiento local de los datos del resumen diario";
 "pw_f4_t" = "Sin anuncios";
-"pw_f4_s" = "Elimina los vídeos de Unity Ads con LifeSync Pro";
+"pw_f4_s" = "Sin vídeos al abrir, banners ni intersticiales";
 "pw_cta" = "Desbloquear LifeSync Pro";
 "pw_cta_price" = "Desbloquear LifeSync Pro – %@";
 "pw_price_note" = "Compra única. Sin suscripción, sin cargos recurrentes.";
@@ -53,7 +53,7 @@
 "tab_today" = "Hoy";
 "tab_history" = "Historial";
 "tab_stats" = "Estadísticas";
-"tab_pro" = "Suscripción";
+"tab_pro" = "Pro";
 "history_title" = "Historial";
 "history_empty" = "Aún no hay días guardados. Tus datos aparecerán aquí.";
 "history_steps" = "%d pasos";
@@ -126,3 +126,7 @@
 "pw_terms_link" = "Términos de uso (EULA)";
 "export_csv" = "Exportar CSV (Pro)";
 "intro_skip" = "Omitir";
+"set_ads" = "Publicidad";
+"set_ads_privacy" = "Preferencias de privacidad de anuncios";
+"set_ads_debug" = "Diagnóstico de anuncios";
+"set_ads_test_on" = "Anuncios de prueba activos (toca la versión 7 veces para desactivarlos).";

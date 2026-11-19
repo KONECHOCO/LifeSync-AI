@@ -6,7 +6,7 @@ options:
   developmentLanguage: it
 settings:
   base:
-    MARKETING_VERSION: "1.1"
+    MARKETING_VERSION: "1.2"
     CURRENT_PROJECT_VERSION: "2"
     SWIFT_VERSION: "5.9"
     DEVELOPMENT_TEAM: "$(APPLE_TEAM_ID)"
@@ -62,8 +62,9 @@ targets:
           - UIInterfaceOrientationPortraitUpsideDown
           - UIInterfaceOrientationLandscapeLeft
           - UIInterfaceOrientationLandscapeRight
+        GADApplicationIdentifier: "ca-app-pub-1151868778464777~9741482318"
         SKAdNetworkItems:
-          - SKAdNetworkIdentifier: 4pfyvq9l8r.skadnetwork
+          - SKAdNetworkIdentifier: cstr6suwn9.skadnetwork
     entitlements:
       path: ios/LifeSyncAI/LifeSyncAI.entitlements
     settings:

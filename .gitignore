@@ -27,3 +27,12 @@ node_modules/
 *.log
 .chrome-screenshot-profiles*/
 build_inspect/
+
+# Android
+android/.gradle/
+android/build/
+android/app/build/
+android/local.properties
+android/keystore.properties
+android/.kotlin/
+*.jks

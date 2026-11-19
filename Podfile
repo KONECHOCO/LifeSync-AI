@@ -5,7 +5,9 @@ project 'LifeSyncAI.xcodeproj'
 target 'LifeSyncAI' do
   use_frameworks!
 
-  pod 'UnityAds'
+  # AdMob (stesse versioni delle altre app Ikonet: OmniTransit, FuelSaver)
+  pod 'Google-Mobile-Ads-SDK', '13.6.0'
+  pod 'GoogleUserMessagingPlatform', '~> 3.1'
 end
 
 post_install do |installer|

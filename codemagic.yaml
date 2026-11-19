@@ -92,3 +92,24 @@ workflows:
         auth: integration
         submit_to_testflight: false
         submit_to_app_store: false
+
+  android-play:
+    name: LifeSync AI - Android Google Play
+    instance_type: linux_x2
+    max_build_duration: 60
+    # Nessun trigger automatico: avviare a mano. Il keystore "lifesync_android" va caricato su
+    # Codemagic (Team settings > Code signing identities > Android keystores) dal titolare dell'account.
+    environment:
+      android_signing:
+        - lifesync_android
+      java: 17
+    scripts:
+      - name: Build signed AAB
+        script: |
+          cd android
+          chmod +x gradlew
+          # minuti dal 1970: sempre crescente e sotto il limite di versionCode (2147483647)
+          BUILD_NUMBER=$(( $(date -u +%s) / 60 ))
+          ./gradlew bundleRelease -PversionCode=$BUILD_NUMBER
+    artifacts:
+      - android/app/build/outputs/bundle/release/*.aab

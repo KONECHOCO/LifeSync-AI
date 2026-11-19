@@ -7,8 +7,11 @@ struct SettingsView: View {
     @AppStorage("nightlyEnabled") private var nightlyEnabled = true
     @AppStorage("nightlyMinutes") private var nightlyMinutes = 23 * 60
 
+    @StateObject private var ads = AdMobManager.shared
+    @StateObject private var purchaseManager = PurchaseManager.shared
     @State private var showingDeleteConfirm = false
     @State private var testSent = false
+    @State private var versionTaps = 0
 
     private let privacyURL = URL(string: "https://github.com/KONECHOCO/LifeSync-AI/blob/main/PRIVACY.md")
     private let supportURL = URL(string: "https://github.com/KONECHOCO/LifeSync-AI")
@@ -44,6 +47,27 @@ struct SettingsView: View {
                     }
                 }
 
+                if !purchaseManager.isPro && ads.privacyOptionsRequired {
+                    Section("set_ads".localized) {
+                        Button("set_ads_privacy".localized) {
+                            ads.presentPrivacyOptions()
+                        }
+                    }
+                }
+
+                if ads.useTestAds {
+                    Section("set_ads_debug".localized) {
+                        Text("set_ads_test_on".localized)
+                            .font(.footnote)
+                            .foregroundColor(.orange)
+                        ForEach(ads.diagnostics, id: \.self) { line in
+                            Text(line)
+                                .font(.caption2.monospaced())
+                                .foregroundColor(.gray)
+                        }
+                    }
+                }
+
                 Section("set_data".localized) {
                     Button("set_delete".localized, role: .destructive) {
                         showingDeleteConfirm = true
@@ -62,6 +86,15 @@ struct SettingsView: View {
                         Spacer()
                         Text(versionText)
                             .foregroundColor(.gray)
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        // 7 tocchi: annunci di test on/off (per verificare gli annunci senza cliccare quelli reali)
+                        versionTaps += 1
+                        if versionTaps >= 7 {
+                            versionTaps = 0
+                            ads.toggleTestAds()
+                        }
                     }
                 }
             }
