@@ -14,6 +14,7 @@ const DEVICES = {
   'ipad_13': [2064, 2752],
   'ipad_12.9': [2048, 2732],
   'ipad_11': [1668, 2388],
+  'android_phone': [1080, 1920],
 };
 
 const L = {
@@ -24,7 +25,7 @@ const L = {
     h3: ['LifeSync Pro: un solo', 'acquisto, senza annunci'],
     steps: 'Passi oggi', places: 'Luoghi visitati', activity: 'Attività rilevata', walking: 'Camminata',
     aiTitle: 'Riepilogo giornaliero AI', unlock: 'Guarda video e sblocca',
-    aiText: ['Una giornata attiva con 8.420 passi', 'e quattro luoghi visitati.'], adNote: 'Un video Unity Ads sblocca il riepilogo.',
+    aiText: ['Una giornata attiva con 8.420 passi', 'e quattro luoghi visitati.'], adNote: 'Un breve video sblocca il riepilogo. Pro: senza annunci.',
     privTitle: 'Archivio locale privato', privText: 'I tuoi dati restano su questo dispositivo.',
     sumTag: 'RIEPILOGO ASSISTENTE AI', sumHead: 'Una giornata attiva ed equilibrata',
     sumText: ['Oggi hai camminato 8.420 passi e visitato', 'quattro luoghi. Ritmo costante, con più', 'energia nel pomeriggio.'],
@@ -41,7 +42,7 @@ const L = {
     h3: ['LifeSync Pro: pay once,', 'no ads'],
     steps: 'Steps today', places: 'Visited places', activity: 'Detected activity', walking: 'Walking',
     aiTitle: 'AI daily summary', unlock: 'Watch video to unlock',
-    aiText: ['A focused day with 8,420 steps', 'and four places visited.'], adNote: 'A rewarded Unity Ads video unlocks the summary.',
+    aiText: ['A focused day with 8,420 steps', 'and four places visited.'], adNote: 'A short video unlocks the summary. Pro: no ads.',
     privTitle: 'Private local archive', privText: 'Your sensor data stays on this device.',
     sumTag: 'AI ASSISTANT SUMMARY', sumHead: 'An active, balanced day',
     sumText: ['Today you walked 8,420 steps and visited', 'four places. Steady pace, with more', 'energy in the afternoon.'],
@@ -58,7 +59,7 @@ const L = {
     h3: ['LifeSync Pro: pago único,', 'sin anuncios'],
     steps: 'Pasos hoy', places: 'Lugares visitados', activity: 'Actividad detectada', walking: 'Caminando',
     aiTitle: 'Resumen diario IA', unlock: 'Mira un video y desbloquea',
-    aiText: ['Un día activo con 8.420 pasos', 'y cuatro lugares visitados.'], adNote: 'Un video de Unity Ads desbloquea el resumen.',
+    aiText: ['Un día activo con 8.420 pasos', 'y cuatro lugares visitados.'], adNote: 'Un vídeo corto desbloquea el resumen. Pro: sin anuncios.',
     privTitle: 'Archivo local privado', privText: 'Tus datos se quedan en este dispositivo.',
     sumTag: 'RESUMEN DEL ASISTENTE IA', sumHead: 'Un día activo y equilibrado',
     sumText: ['Hoy caminaste 8.420 pasos y visitaste', 'cuatro lugares. Ritmo constante, con más', 'energía por la tarde.'],
@@ -75,7 +76,7 @@ const L = {
     h3: ['LifeSync Pro : achat', 'unique, sans pub'],
     steps: 'Pas aujourd’hui', places: 'Lieux visités', activity: 'Activité détectée', walking: 'Marche',
     aiTitle: 'Résumé quotidien IA', unlock: 'Regarder une vidéo',
-    aiText: ['Une journée active : 8 420 pas', 'et quatre lieux visités.'], adNote: 'Une vidéo Unity Ads débloque le résumé.',
+    aiText: ['Une journée active : 8 420 pas', 'et quatre lieux visités.'], adNote: 'Une courte vidéo débloque le résumé. Pro : sans pub.',
     privTitle: 'Archive locale privée', privText: 'Vos données restent sur cet appareil.',
     sumTag: 'RÉSUMÉ DE L’ASSISTANT IA', sumHead: 'Une journée active et équilibrée',
     sumText: ['Aujourd’hui, vous avez marché 8 420 pas et', 'visité quatre lieux. Rythme stable,', 'avec plus d’énergie l’après-midi.'],
@@ -91,7 +92,7 @@ const L = {
 const X = {
   it: {
     h4: ['La tua giornata,', 'minuto per minuto'], h5: ['Statistiche chiare', 'degli ultimi 7 giorni'],
-    rest: 'Tempo fermo', restVal: '7h 20m',
+    rest: 'Tempo fermo', restVal: '7h 20m', notes: 'Note vocali',
     tlTitle: 'Timeline movimenti e attività', add: 'Aggiungi',
     ev: [['08:47', 'Nuova visita: Ufficio', 'Via Roma 12', 'pin'], ['09:15', 'Camminata', 'Durata 32 min', 'walk'], ['13:00', 'Pausa pranzo', 'Aggiunto manualmente', 'note'], ['18:30', 'Sessione palestra', 'Aggiunto manualmente', 'note']],
     voiceTitle: 'Nota vocale rapida', voiceDesc: 'Registra un pensiero: viene trascritto sul dispositivo.', rec: 'Registra',
@@ -101,7 +102,7 @@ const X = {
   },
   en: {
     h4: ['Your day,', 'minute by minute'], h5: ['Clear statistics', 'for the last 7 days'],
-    rest: 'Still time', restVal: '7h 20m',
+    rest: 'Still time', restVal: '7h 20m', notes: 'Voice notes',
     tlTitle: 'Movement & activity timeline', add: 'Add',
     ev: [['08:47', 'New visit: Office', '12 Main Street', 'pin'], ['09:15', 'Walking', 'Lasted 32 min', 'walk'], ['13:00', 'Lunch break', 'Added manually', 'note'], ['18:30', 'Gym session', 'Added manually', 'note']],
     voiceTitle: 'Quick voice note', voiceDesc: 'Record a thought: it is transcribed on your device.', rec: 'Record',
@@ -111,7 +112,7 @@ const X = {
   },
   es: {
     h4: ['Tu día,', 'minuto a minuto'], h5: ['Estadísticas claras', 'de los últimos 7 días'],
-    rest: 'Tiempo quieto', restVal: '7h 20m',
+    rest: 'Tiempo quieto', restVal: '7h 20m', notes: 'Notas de voz',
     tlTitle: 'Línea de tiempo de movimientos', add: 'Añadir',
     ev: [['08:47', 'Nueva visita: Oficina', 'Calle Mayor 12', 'pin'], ['09:15', 'Caminando', 'Duración 32 min', 'walk'], ['13:00', 'Pausa para comer', 'Añadido manualmente', 'note'], ['18:30', 'Sesión de gimnasio', 'Añadido manualmente', 'note']],
     voiceTitle: 'Nota de voz rápida', voiceDesc: 'Graba un pensamiento: se transcribe en tu dispositivo.', rec: 'Grabar',
@@ -121,7 +122,7 @@ const X = {
   },
   fr: {
     h4: ['Votre journée,', 'minute par minute'], h5: ['Des statistiques claires', 'sur 7 jours'],
-    rest: 'Temps immobile', restVal: '7h 20m',
+    rest: 'Temps immobile', restVal: '7h 20m', notes: 'Notes vocales',
     tlTitle: 'Chronologie des déplacements', add: 'Ajouter',
     ev: [['08:47', 'Nouvelle visite : Bureau', '12 rue Centrale', 'pin'], ['09:15', 'Marche', 'Durée 32 min', 'walk'], ['13:00', 'Pause déjeuner', 'Ajouté manuellement', 'note'], ['18:30', 'Séance de sport', 'Ajouté manuellement', 'note']],
     voiceTitle: 'Note vocale rapide', voiceDesc: 'Enregistrez une pensée : elle est transcrite sur votre appareil.', rec: 'Enregistrer',
@@ -188,7 +189,7 @@ function build(kind, lang, w, h) {
           R(x0 + pad * 0.7, y + pad * 0.7, 80 * s, 80 * s, 26 * s, col) + T(x0 + pad * 0.7 + 40 * s, y + pad * 0.7 + 55 * s, ic, 40 * s, '#07111E', 700, 'middle') +
           T(x0 + pad * 0.7, y + ch - 100 * s, label, 30 * s, '#99A8B8', 600) + T(x0 + pad * 0.7, y + ch - 36 * s, val, vs, '#F8FBFF', 700);
       };
-      return mk(0, 'S', '#54E5F2', t.steps, '8.420', 60 * s) + mk(1, 'P', '#A06CFF', t.places, '4', 60 * s) + mk(2, 'R', '#F3A64A', x.rest, x.restVal, 52 * s);
+      return mk(0, 'S', '#54E5F2', t.steps, '8.420', 60 * s) + mk(1, 'P', '#A06CFF', t.places, '4', 60 * s) + (w === 1080 && h === 1920 ? mk(2, 'N', '#F3A64A', x.notes, '3', 60 * s) : mk(2, 'R', '#F3A64A', x.rest, x.restVal, 52 * s));
     } });
     rows.push({ f: 1.9, draw: (y, ch) => card(y, ch, '#14253C', '#E3B84C', (x0, yy) =>
       T(x0, yy + 100 * s, t.aiTitle, 54 * s, '#FFD55F', 700) +
